@@ -1,1 +1,28 @@
-<p>rooms works!</p>
+<div *ngIf="!game.isPlayerCreated()">
+    <h2>Create Player</h2>
+    <input type="text" placeholder="Your name" [(ngModel)]="playerName" />
+    <button (click)="createPlayer()">Continue</button>
+  </div>
+  
+  <div *ngIf="game.isPlayerCreated()">
+    <h2>Create Room</h2>
+    <input type="text" placeholder="Room name" [(ngModel)]="roomName" />
+    <button (click)="joinRoom(roomName)">Join</button>
+
+    <button (click)="createRoom()">Create</button>
+  
+    <hr />
+  
+    <h2>Public Rooms</h2>
+    <div *ngIf="rooms.length === 0">No rooms available.</div>
+  
+    <ul>
+      <li *ngFor="let r of rooms">
+        <strong>{{ r.name }}</strong>
+        ({{ r.players.length }}/{{ r.maxPlayers }})
+  
+        <button (click)="joinRoom(r.id)">Join</button>
+      </li>
+    </ul>
+  </div>
+  

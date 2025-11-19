@@ -7,19 +7,26 @@ import { Subject } from 'rxjs';
 export class WsService {
   private ws!: WebSocket;
   private message$ = new Subject<any>();
-
-  constructor() {}
+  private ready$ = new Subject<void>();
 
   connect() {
     if (this.ws) return;
 
-    this.ws = new WebSocket('ws://localhost:8080');
+    this.ws = new WebSocket('ws://192.168.0.106:8080');
+
+    this.ws.onopen = () => {
+      this.ready$.next();
+    };
 
     this.ws.onmessage = (ev) => {
       try {
         this.message$.next(JSON.parse(ev.data));
       } catch {}
     };
+  }
+
+  onReady() {
+    return this.ready$.asObservable();
   }
 
   onMessage() {

@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { WsService } from '../services/ws.service';
+import { WsService } from '../ws.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
-  playerId = signal<string | null>(null);
-  room = signal<any | null>(null);
+  private player: { id: string; name: string } | null = null;
+    room = signal<any | null>(null);
 
   constructor(
     private ws: WsService,
@@ -19,22 +18,20 @@ export class GameService {
   }
 
   private handleMessage(msg: any) {
+    console.log(msg);
+    
     switch (msg.type) {
-      case 'player_created':
-        this.playerId.set(msg.playerId);
-        break;
-
-      case 'room_created':
+      case 'room-created':
         this.room.set(msg.room);
         this.router.navigate(['/room', msg.roomCode]);
         break;
 
-      case 'room_joined':
+      case 'room-joined':
         this.room.set(msg.room);
         this.router.navigate(['/room', msg.roomCode]);
         break;
 
-      case 'room_update':
+      case 'room-update':
         this.room.set(msg.room);
 
         // Quando tiver 2 players → ir para o board
@@ -46,16 +43,27 @@ export class GameService {
   }
 
   createPlayer(name: string) {
-    this.ws.send({ type: 'create_player', name });
-  }
+      this.player = {
+        id: crypto.randomUUID(),
+        name,
+      };
+    }  
+
+    getPlayer() {
+      return this.player;
+    }
+  
+    isPlayerCreated() {
+      return this.player !== null;
+    }
 
   createRoom() {
-    if (!this.playerId()) return;
-    this.ws.send({ type: 'create_room', playerId: this.playerId() });
+    if (!this.player?.id) return;
+    this.ws.send({ type: 'create-room', name:"nome padrão"+crypto.randomUUID(),player:this.player, isPrivate:false });
   }
 
   joinRoom(roomCode: string) {
-    if (!this.playerId()) return;
-    this.ws.send({ type: 'join_room', roomCode, playerId: this.playerId() });
+    if (!this.player?.id) return;
+    this.ws.send({ type: 'join-room', roomCode, playerId: this.player.id });
   }
 }
