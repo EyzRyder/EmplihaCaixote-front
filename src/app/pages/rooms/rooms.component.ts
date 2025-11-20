@@ -39,10 +39,6 @@ export class RoomsComponent {
       if (msg.type === 'rooms-updated') {
         this.rooms = msg.rooms
       }
-      if (msg.type === 'room-created') {
-        // this.rooms.push(msg.room)
-        // this.router.navigate(['/room', msg.roomId]);
-      }
     });
   }
 
@@ -57,7 +53,7 @@ export class RoomsComponent {
   }
 
   joinRoom(id: string) {
-        this.router.navigate(['/room', id.trim().toUpperCase()]);
+    this.game.joinRoom(id)
   }
 
 }
