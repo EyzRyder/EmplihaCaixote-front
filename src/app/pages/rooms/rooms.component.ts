@@ -26,14 +26,24 @@ export class RoomsComponent {
   ngOnInit() {
     this.ws.connect();
 
+    this.ws.onReady().subscribe(() => {
+      this.ws.send({ type: 'get-rooms' });
+    });
+
     this.ws.onMessage().subscribe((msg) => {
-      if (msg.type === 'rooms-update') this.rooms = msg.rooms;
+      console.log(msg);
+      if (msg.type === 'rooms-fetched') {
+        console.log(msg.rooms);
+        this.rooms = msg.rooms
+      }
+      if (msg.type === 'rooms-update') {
+        this.rooms = msg.rooms
+      }
       if (msg.type === 'room-created') {
+        // this.rooms.push(msg.room)
         this.router.navigate(['/room', msg.roomId]);
       }
     });
-
-    this.ws.send({ type: 'getrooms' });
   }
 
 

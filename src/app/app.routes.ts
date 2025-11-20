@@ -5,7 +5,7 @@ import { GameComponent } from './pages/game/game.component';
 
 export const routes: Routes = [
   { path: 'rooms', component: RoomsComponent },
-  { path: 'lobby', component: LobbyComponent },
+  { path: 'room', component: LobbyComponent },
   { path: 'game', component: GameComponent },
 
   // rota padrão

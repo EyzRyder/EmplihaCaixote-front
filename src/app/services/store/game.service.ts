@@ -18,17 +18,15 @@ export class GameService {
   }
 
   private handleMessage(msg: any) {
-    console.log(msg);
-    
     switch (msg.type) {
       case 'room-created':
         this.room.set(msg.room);
-        this.router.navigate(['/room', msg.roomCode]);
+        this.router.navigate(['/room', msg.roomId]);
         break;
 
       case 'room-joined':
         this.room.set(msg.room);
-        this.router.navigate(['/room', msg.roomCode]);
+        this.router.navigate(['/room', msg.roomId]);
         break;
 
       case 'room-update':
@@ -36,7 +34,7 @@ export class GameService {
 
         // Quando tiver 2 players → ir para o board
         if (msg.room.players.length === 2) {
-          this.router.navigate(['/room', msg.room.roomCode, 'board']);
+          this.router.navigate(['/room', msg.roomId]);
         }
         break;
     }

@@ -10,14 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './lobby.component.scss'
 })
 export class LobbyComponent {
-  roomCode
+  roomId
   room = computed(() => this.game.room());
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public game: GameService
   ) {
-    this.roomCode = this.route.snapshot.paramMap.get("roomCode")!;
+    this.roomId = this.route.snapshot.paramMap.get("roomId")!;
 
   }
 
