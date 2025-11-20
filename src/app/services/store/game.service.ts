@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { WsService } from '../ws.service';
-
+import { v4 as uuidv4 } from 'uuid'; 
 @Injectable({
   providedIn: 'root',
 })
@@ -42,7 +42,7 @@ export class GameService {
 
   createPlayer(name: string) {
       this.player = {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         name,
       };
     }  
@@ -57,7 +57,7 @@ export class GameService {
 
   createRoom() {
     if (!this.player?.id) return;
-    this.ws.send({ type: 'create-room', name:"nome padrão"+crypto.randomUUID(),player:this.player, isPrivate:false });
+    this.ws.send({ type: 'create-room', name:"nome padrão"+uuidv4(),player:this.player, isPrivate:false });
   }
 
   joinRoom(roomCode: string) {
