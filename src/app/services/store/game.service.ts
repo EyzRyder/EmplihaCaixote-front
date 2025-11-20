@@ -24,9 +24,9 @@ export class GameService {
         this.router.navigate(['/room',msg.roomId]);
         break;
 
-      case 'room-joined':
+      case 'player-joined':
         this.room.set(msg.room);
-        this.router.navigate(['/room', msg.roomId]);
+        this.router.navigate(['/room', msg.room.id]);
         break;
 
       case 'room-update':
@@ -57,6 +57,6 @@ export class GameService {
 
   joinRoom(roomId: string) {
     if (!this.player?.id) return;
-    this.ws.send({ type: 'join-room', roomId, playerId: this.player.id });
+    this.ws.send({ type: 'join-room', roomId, player: this.player });
   }
 }
