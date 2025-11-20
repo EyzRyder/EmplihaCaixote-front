@@ -21,7 +21,7 @@ export class GameService {
     switch (msg.type) {
       case 'room-created':
         this.room.set(msg.room);
-        this.router.navigate(['/room', msg.roomId]);
+        this.router.navigate(['/room',msg.roomId]);
         break;
 
       case 'room-joined':

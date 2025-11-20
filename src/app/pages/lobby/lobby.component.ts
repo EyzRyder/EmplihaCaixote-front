@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from '../../services/store/game.service';
 import { CommonModule } from '@angular/common';
@@ -10,14 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './lobby.component.scss'
 })
 export class LobbyComponent {
-  roomId
+  roomId = signal("")
   room = computed(() => this.game.room());
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public game: GameService
   ) {
-    this.roomId = this.route.snapshot.paramMap.get("roomId")!;
+    this.route.params.subscribe((params) => { this.roomId.set(params['id']); });
 
   }
 

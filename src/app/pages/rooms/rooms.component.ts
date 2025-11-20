@@ -41,7 +41,7 @@ export class RoomsComponent {
       }
       if (msg.type === 'room-created') {
         // this.rooms.push(msg.room)
-        this.router.navigate(['/room', msg.roomId]);
+        // this.router.navigate(['/room', msg.roomId]);
       }
     });
   }
