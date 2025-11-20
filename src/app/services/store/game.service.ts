@@ -31,11 +31,6 @@ export class GameService {
 
       case 'room-update':
         this.room.set(msg.room);
-
-        // Quando tiver 2 players → ir para o board
-        if (msg.room.players.length === 2) {
-          this.router.navigate(['/room', msg.roomId]);
-        }
         break;
     }
   }
