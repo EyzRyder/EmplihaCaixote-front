@@ -55,8 +55,8 @@ export class GameService {
     this.ws.send({ type: 'create-room', name:"nome padrão"+uuidv4(),player:this.player, isPrivate:false });
   }
 
-  joinRoom(roomCode: string) {
+  joinRoom(roomId: string) {
     if (!this.player?.id) return;
-    this.ws.send({ type: 'join-room', roomCode, playerId: this.player.id });
+    this.ws.send({ type: 'join-room', roomId, playerId: this.player.id });
   }
 }

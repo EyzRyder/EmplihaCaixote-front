@@ -1,6 +1,8 @@
 <div class="container">
-    <h2>Sala: {{ roomId }}</h2>
-  
+    <h2>Sala: {{ room().name }}</h2>
+  <p *ngIf="room().isPrivate">Sala Privada</p>
+  <p *ngIf="room().isPrivate==false">Sala Publica</p>
+
     <h3>Jogadores:</h3>
     <ul>
       <li *ngFor="let p of players">{{ p.name }}</li>

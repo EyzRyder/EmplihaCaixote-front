@@ -17,8 +17,7 @@ export class LobbyComponent {
     private router: Router,
     public game: GameService
   ) {
-    this.route.params.subscribe((params) => { this.roomId.set(params['id']); });
-
+    this.route.params.subscribe((params) => { this.roomId.set(params['id']); });    
   }
 
   get players() {
