@@ -36,7 +36,7 @@ export class RoomsComponent {
         console.log(msg.rooms);
         this.rooms = msg.rooms
       }
-      if (msg.type === 'rooms-update') {
+      if (msg.type === 'rooms-updated') {
         this.rooms = msg.rooms
       }
       if (msg.type === 'room-created') {
