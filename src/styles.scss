@@ -5,6 +5,13 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'VCR_OSD_MONO';
+  src: url('./asstes/font/VCR_OSD_MONO_1.001.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .btn {
   font-size: large;
   font-weight: bold;
@@ -19,6 +26,16 @@ main {
   align-items: center;
   flex-direction: column;
 }
+
+.title {
+  font-family: 'VCR_OSD_MONO', sans-serif;
+  color: blue;
+  font-size: 2rem;
+  text-shadow:
+  -1px -1px 0 black,
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black;}
 
 .bg_red_blue {
   background-image: url("./asstes/pixels/fundos/menu.png");
