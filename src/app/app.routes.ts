@@ -15,6 +15,5 @@ export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
 
   // rota padrão
-  //{ path: '', redirectTo: 'rooms', pathMatch: 'full' },
-  { path: '**', redirectTo: 'rooms' },
+  { path: '**', redirectTo: '' },
 ];
