@@ -1,1 +1,37 @@
-<p>cadastro works!</p>
+<main class="cadastro bg_red_blue">
+    <div class="card">
+        <div class="form">
+            <div class="logo_vector_case">
+                <img class="logo" src="/svgs/logo.svg" />
+            </div>
+            <div class="cadastro_vetro_case">
+                <h1 class="title">Cadastro</h1>
+            </div>
+            <div class="input_label">
+                <label for="username">Usuario</label>
+                <input id="username" name="username" type="text" placeholder="Digite seu username"
+                    [(ngModel)]="username" />
+            </div>
+            <div class="input_label">
+                <label for="password">Senha</label>
+                <input id="password" name="password" type="password" placeholder="Digite sua senha"
+                    [(ngModel)]="password" />
+            </div>
+            <div class="input_label">
+                <label for="confimrarSenha">Confirmar Senha</label>
+                <input id="confimrarSenha" name="confimrarSenha" type="password" placeholder="Confirma sua senha"
+                    [(ngModel)]="password" />
+            </div>
+            <div>
+                <p class="error_message" *ngIf="this.error.trim()!==''">
+                    {{this.error}}
+                </p>
+            </div>
+
+            <div class="btnList">
+                <button class="btn" (click)="goBack()">Voltar</button>
+                <button class="btn" (click)="onCadastro()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</main>
