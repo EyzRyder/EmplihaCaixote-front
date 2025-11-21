@@ -1,10 +1,5 @@
-<div *ngIf="!game.isPlayerCreated()">
-    <h2>Create Player</h2>
-    <input type="text" placeholder="Your name" [(ngModel)]="playerName" />
-    <button (click)="createPlayer()">Continue</button>
-  </div>
-  
-  <div *ngIf="game.isPlayerCreated()">
+<main>
+  <div>
     <h2>Create Room</h2>
     <input type="text" placeholder="Room name" [(ngModel)]="roomName" />
     <button (click)="joinRoom(roomName)">Join</button>
@@ -26,3 +21,4 @@
     </ul>
   </div>
   
+</main>
