@@ -26,8 +26,6 @@ main.login {
 
       .logo_vector_case{
         .logo {
-          // position: absolute;
-          // top: 5%;
           width: 150px;
         }
       }
@@ -66,6 +64,7 @@ main.login {
           border-radius: 8px;
           color: white;
           padding: .5rem 1rem;
+          font-family: 'VCR_OSD_MONO', sans-serif;
         }
       }
 
@@ -73,6 +72,7 @@ main.login {
       .input_label {
         label {
           color: white;
+          font-family: 'VCR_OSD_MONO', sans-serif;
         }
       }
     }
