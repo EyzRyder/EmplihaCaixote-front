@@ -20,7 +20,19 @@ export class CadastroComponent {
       private _location: Location,
       private _router: Router) {}
 
-      onCadastro(){}
+      onCadastro(){
+        if (this.username.trim() == '' || this.password.trim() == '' || this.confirmPassword.trim() == '') {
+          this.error = 'Não pode deixar nenhum campo vazio';
+          return;
+        } else if(this.password!==this.confirmPassword){
+          this.error = 'Confirma sua senha, eles estão diferentes';
+          return;
+        } else {
+          this.error = '';
+        }
+
+
+      }
       goBack(): void {
         if (window.history.length > 1) {
           this._location.back();
