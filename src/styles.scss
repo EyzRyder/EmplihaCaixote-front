@@ -34,7 +34,16 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 input{
   padding: .7rem .5rem;
-  border-radius: 8px;
+  border-radius: 16px;
+}
+
+.input_label{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  font-weight: 700;
+ 
 }
