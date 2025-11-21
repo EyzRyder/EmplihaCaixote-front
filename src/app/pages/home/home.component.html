@@ -1,10 +1,15 @@
-<main class="home">
-  <img src="logo.svg"/>
-  <div class="btnList">
+<main class="home bg_red_blue">
+  <img src="/svgs/logo.svg"/>
+  <div *ngIf="authService.isLoggedIn()"  class="btnList">
     <a routerLink="/rooms"><button class="btn">Iniciar</button></a>
     <a routerLink="/loja"><button class="btn">Loja</button></a>
     <a routerLink="/perfil"><button class="btn">Perfil</button></a>
+    <button (click)="authService.logout()" class="btn">Log out</button>
+  </div>
+  <div *ngIf="!authService.isLoggedIn()" class="btnList">
+    <a routerLink="/login"><button class="btn">Log in</button></a>
+    <a routerLink="/cadastra"><button class="btn">Cadastro</button></a>
   </div>
   <div class="exitBtn"></div>
-  <div class="userIcon">User</div>
+<!--  <div class="userIcon">User</div>-->
 </main>
