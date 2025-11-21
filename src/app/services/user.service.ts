@@ -1,13 +1,13 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { AuthRequest, LoginResponse, User } from './auth';
+import { AuthRequest, AuthResponse, User } from './auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://192.168.0.106:8080/auth/login';
+  private apiUrl = 'http://192.168.0.106:8080/auth';
   private _user = signal<User | null>(
     JSON.parse(localStorage.getItem('auth_user') || 'null'),
   );
@@ -16,8 +16,17 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  login(payload: AuthRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.apiUrl, payload).pipe(
+  login(payload: AuthRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(this.apiUrl+"/login", payload).pipe(
+      tap((response) => {
+        this.setUser(response.user);
+        localStorage.setItem('auth_token', response.token);
+      }),
+    );
+  }
+
+  register(payload: AuthRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(this.apiUrl+"/register", payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
@@ -31,7 +40,7 @@ export class UserService {
     localStorage.removeItem('auth_user');
   }
 
-  setUser(data: LoginResponse['user']) {
+  setUser(data: AuthResponse['user']) {
     this._user.set(data);
     localStorage.setItem('auth_user', JSON.stringify(data));
   }

@@ -3,12 +3,7 @@ export interface AuthRequest {
     password: string;
   }
   
-  export interface CadastroResponse {
-    message: string;
-    user: User;
-  }
-  
-  export interface LoginResponse {
+  export interface AuthResponse {
     token: string;
     user: User;
   }
