@@ -14,3 +14,14 @@ div.card-layout{
         flex-grow:1;
       }
 }
+@media screen and (max-width: 580px) {
+  div.card-layout{
+    padding: 1rem;
+    border-radius: 8px;
+
+    .content{
+      padding: .5rem;
+      border-radius: 8px;
+    }
+  }
+}
