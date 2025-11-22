@@ -57,21 +57,46 @@ main.room {
                 flex: 1;
                 flex-grow: 1;
                 height: 100%;
+                width: 100%;
                 background-image: linear-gradient(#ffff, #C6C6C6);
                 border-radius: 8px;
                 padding: .5rem;
+                text-decoration: none;
+                gap: .5rem;
+                
+                li{
+                    text-decoration: none;
+                    list-style-type: none;
+                    display: grid;
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    align-items: center;
+                    justify-items: center;
+
+
+                    button, a button{
+                        width: 100%;
+                        background-image: linear-gradient(#74A0FD, #587DCC);
+                        padding: .5rem .8rem;
+                        color: white;
+                        border-radius: 12px;
+                    }
+                }
             }
             .btnList{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 gap: 1rem;
-                button{
+                a{
+                    width: 100%;
+                }
+                button, a button{
                     width: 100%;
                     background-image: linear-gradient(#74A0FD, #587DCC);
                     padding: 1rem;
                     color: white;
                     border-radius: 12px;
+                    height: 100%;
                 }
             }
 
@@ -95,6 +120,12 @@ main.room {
                     gap: .5rem;
                     button{
                         padding: .3rem;
+                    }
+                }
+                .sala_publicas{
+                    li{
+                        display: flex;
+                        flex-direction: column;
                     }
                 }
             }

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { GameService } from '../../services/store/game.service';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { WsService } from '../../services/ws.service';
 import { CardLayoutComponent } from "../../components/card-layout/card-layout.component";
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-rooms',
-  imports: [CommonModule, FormsModule, CardLayoutComponent], 
+  imports: [CommonModule, FormsModule, CardLayoutComponent,RouterLink], 
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss'
 })
@@ -21,7 +22,9 @@ export class RoomsComponent {
   constructor(
     private ws: WsService,
     public game: GameService,
-    private router: Router
+    private _userService: UserService,
+    private _router: Router,
+    private _location: Location,
   ) {}
 
   ngOnInit() {
@@ -50,11 +53,21 @@ export class RoomsComponent {
   }
 
   createRoom() {
-    this.game.createRoom();
+    const userId = this._userService.user()?.id
+    if(!userId) return 
+    this.game.createRoom(userId);
   }
 
   joinRoom(id: string) {
     this.game.joinRoom(id)
+  }
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this._location.back();
+    } else {
+      this._router.navigate(['/']);
+    }
   }
 
 }
