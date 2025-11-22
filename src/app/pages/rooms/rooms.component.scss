@@ -4,6 +4,11 @@ main.room {
 
     app-card-layout {
         .room_content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            height: 100%;
+
             .pesquisa_sala {
                 display: flex;
                 flex-direction: row;
@@ -35,6 +40,41 @@ main.room {
                     -1px 1px 0 black,
                     1px 1px 0 black;
             }
+            label{
+                color:rgb(255, 255, 255);
+                font-weight: 700;
+                text-shadow:
+                -1px -1px 0 black,
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
+                font-family: 'VCR_OSD_MONO', sans-serif;
+
+            }
+            .sala_publicas{
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                flex-grow: 1;
+                height: 100%;
+                background-image: linear-gradient(#ffff, #C6C6C6);
+                border-radius: 8px;
+                padding: .5rem;
+            }
+            .btnList{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 1rem;
+                button{
+                    width: 100%;
+                    background-image: linear-gradient(#74A0FD, #587DCC);
+                    padding: 1rem;
+                    color: white;
+                    border-radius: 12px;
+                }
+            }
+
         }
     }
 }
@@ -46,11 +86,19 @@ main.room {
                 .pesquisa_sala {
                     flex-direction: column;
                     gap: .5rem;
-                    button{
+
+                    button {
                         width: 100%;
                     }
                 }
+                .btnList{
+                    gap: .5rem;
+                    button{
+                        padding: .3rem;
+                    }
+                }
             }
+
         }
     }
 }

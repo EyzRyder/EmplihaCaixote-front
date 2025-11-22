@@ -12,19 +12,24 @@
       <hr />
 
       <h2>Salas Public </h2>
-      <div *ngIf="rooms.length === 0">No rooms available.</div>
-      <div *ngIf="rooms.length > 0">
+      <div class="sala_publicas" *ngIf="rooms.length === 0">Nenhuma sala disponivel.</div>
+      <div class="sala_publicas" *ngIf="rooms.length > 0">
         <ul>
           <li *ngFor="let r of rooms">
             <strong>{{ r.name }}</strong>
             ({{ r.players.length }}/{{ r.maxPlayers }})
 
-            <button (click)="joinRoom(r.id)">Join</button>
+            <button (click)="joinRoom(r.id)">Entrar</button>
           </li>
         </ul>
       </div>
 
-      <button class="btn" (click)="createRoom()">Create</button>
+      <div class="btnList">
+        <button class="btn criar_sala" (click)="createRoom()">Volar</button>
+        <button class="btn criar_sala" (click)="createRoom()">Perfil</button>
+        <button class="btn criar_sala" (click)="createRoom()">Criar Sala</button>
+
+      </div>
 
     </div>
   </app-card-layout>
