@@ -54,7 +54,9 @@ export class RoomsComponent {
   }
 
   joinRoom(id: string) {
-    this.game.joinRoom(id)
+    const user =this._userService.user()
+    if (!user) return;
+    this.game.joinRoom(id,user)
   }
 
   goBack(): void {
