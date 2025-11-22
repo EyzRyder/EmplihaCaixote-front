@@ -36,7 +36,7 @@ export class LoginComponent {
     this.authService.login(payload).subscribe({
       next: () => {
         console.log('Logged in');
-        this._router.navigate(['/rooms']); 
+        this._router.navigate(['/salas']); 
       },
       error: (err) => {
         this.error = err.error?.message || 'Login failed';

@@ -21,7 +21,7 @@ export class GameService {
     switch (msg.type) {
       case 'room-created':
         this.room.set(msg.room);
-        this.router.navigate(['/room',msg.roomId]);
+        // this.router.navigate(['/sala',msg.roomId]);
         break;
 
       case 'player-joined':
@@ -50,9 +50,9 @@ export class GameService {
       return this.player !== null;
     }
 
-  createRoom() {
-    if (!this.player?.id) return;
-    this.ws.send({ type: 'create-room', name:"nome padrão"+uuidv4(),player:this.player, isPrivate:false });
+  createRoom(id:string) {
+    if (id.trim()=="") return;
+    this.ws.send({ type: 'create-room', name:"nome padrão"+uuidv4(),player:{name:"Player x", id}, isPrivate:false });
   }
 
   joinRoom(roomId: string) {

@@ -8,8 +8,8 @@ import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'rooms', component: RoomsComponent ,canActivate: [authGuard],},
-  { path: 'room/:id', component: LobbyComponent ,canActivate: [authGuard],},
+  { path: 'salas', component: RoomsComponent ,canActivate: [authGuard],},
+  { path: 'sala/:id', component: LobbyComponent ,canActivate: [authGuard],},
   { path: 'game', component: GameComponent, canActivate: [authGuard], },
   { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: CadastroComponent },
