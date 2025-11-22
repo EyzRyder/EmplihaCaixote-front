@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { WsService } from '../ws.service';
 import { v4 as uuidv4 } from 'uuid'; 
+import { User } from '../auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +22,7 @@ export class GameService {
     switch (msg.type) {
       case 'room-created':
         this.room.set(msg.room);
-        // this.router.navigate(['/sala',msg.roomId]);
+        this.router.navigate(['/sala',msg.roomId]);
         break;
 
       case 'player-joined':
@@ -50,9 +51,9 @@ export class GameService {
       return this.player !== null;
     }
 
-  createRoom(id:string) {
-    if (id.trim()=="") return;
-    this.ws.send({ type: 'create-room', name:"nome padrão"+uuidv4(),player:{name:"Player x", id}, isPrivate:false });
+  createRoom({name,user,isPrivate}:{name:string,user:User,isPrivate:boolean}) {
+    if (user.id.trim()=="" || name.trim()=="") return;
+    this.ws.send({ type: 'create-room', name ,player:{name:user.username, id:user.id}, isPrivate });
   }
 
   joinRoom(roomId: string) {

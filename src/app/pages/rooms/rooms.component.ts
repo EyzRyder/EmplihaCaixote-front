@@ -47,15 +47,10 @@ export class RoomsComponent {
   }
 
 
-  createPlayer() {
-    if (!this.playerName.trim()) return;
-    this.game.createPlayer(this.playerName);
-  }
-
-  createRoom() {
-    const userId = this._userService.user()?.id
-    if(!userId) return 
-    this.game.createRoom(userId);
+  createRoom(isPrivate:boolean) {
+    const user = this._userService.user()
+    if(!user) return 
+    this.game.createRoom({name:"Sala de "+user.username,user,isPrivate});
   }
 
   joinRoom(id: string) {

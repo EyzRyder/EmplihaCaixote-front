@@ -16,7 +16,7 @@
         <ul class="sala_publicas" *ngIf="rooms.length > 0">
 
           <li *ngFor="let r of rooms">
-            <strong>{{ r.name }}</strong>
+            <strong>{{ r?.name }}</strong>
             ({{ r.players.length }}/{{ r.maxPlayers }})
 
             <button class="btn" (click)="joinRoom(r.id)">Entrar</button>
@@ -26,9 +26,9 @@
       <div class="btnList">
         <button class="btn" (click)="goBack()">Voltar</button>
         <a routerLink="/perfil"><button class="btn">Perfil</button></a>
-        <a routerLink="/salas/criar"><button class="btn">Criar Sala</button></a>
-        <!-- <button class="btn" (click)="createRoom()">Criar</button> -->
-
+        <a routerLink="/loja"><button class="btn">Loja</button></a>
+        <button class="btn" (click)="createRoom(false)">Criar Sala Publica</button>
+        <button class="btn" (click)="createRoom(true)">Criar Sala Privada</button>
       </div>
 
     </div>

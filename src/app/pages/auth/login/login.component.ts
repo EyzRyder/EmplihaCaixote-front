@@ -20,7 +20,8 @@ export class LoginComponent {
   constructor(
     private authService: UserService,
     private _location: Location,
-    private _router: Router) {}
+    private _router: Router
+  ) {}
 
   onLogin() {
     if (this.username.trim() == '' || this.password.trim() == '') {
