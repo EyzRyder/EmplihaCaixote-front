@@ -1,4 +1,7 @@
 main.home {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
    gap: 2rem;
   position: relative;
 
@@ -29,5 +32,13 @@ main.home {
     position: absolute;
     top: 5%;
     left: 5%;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  main.home {
+    img{
+      width: 250px;
+    }
   }
 }

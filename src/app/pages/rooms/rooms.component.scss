@@ -1,0 +1,56 @@
+main.room {
+    height: 100%;
+    padding: 2rem;
+
+    app-card-layout {
+        .room_content {
+            .pesquisa_sala {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+
+                label {
+                    font-size: 1.2rem;
+                    width: 200px;
+                }
+
+                input {
+                    width: 100%;
+                }
+
+                button {
+                    padding: .5rem 1rem;
+                    border-radius: 12px;
+                }
+            }
+
+            h2 {
+                font-family: 'VCR_OSD_MONO', sans-serif;
+                color: white;
+                text-shadow:
+                    -1px -1px 0 black,
+                    1px -1px 0 black,
+                    -1px 1px 0 black,
+                    1px 1px 0 black;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+    main.room {
+        app-card-layout {
+            .room_content {
+                .pesquisa_sala {
+                    flex-direction: column;
+                    gap: .5rem;
+                    button{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 <main class="login bg_red_blue">
-  <div class="card">
+  <app-card-layout>
     <div class="form">
       <div class="logo_vector_case">
         <img class="logo" src="/svgs/logo.svg" />
@@ -7,19 +7,21 @@
       <div class="login_vetro_case">
         <h1 class="title">Login</h1>
       </div>
-      <div class="input_label">
-        <label for="username">Usuario</label>
-        <input id="username" name="username" type="text" placeholder="Digite seu username" [(ngModel)]="username" />
-      </div>
-      <div class="input_label">
-        <label for="password">Senha</label>
-        <input id="password" type="password" placeholder="Digite sua senha" [(ngModel)]="password" />
-      </div>
+      <div class="inputs">
+        <div class="input_label">
+          <label for="username">Usuario</label>
+          <input id="username" name="username" type="text" placeholder="Digite seu username" [(ngModel)]="username" />
+        </div>
+        <div class="input_label">
+          <label for="password">Senha</label>
+          <input id="password" type="password" placeholder="Digite sua senha" [(ngModel)]="password" />
+        </div>
 
-      <div>
-        <p class="error_message" *ngIf="this.error.trim()!==''">
-          {{this.error}}
-        </p>
+        <div>
+          <p class="error_message" *ngIf="this.error.trim()!==''">
+            {{this.error}}
+          </p>
+        </div>
       </div>
 
       <div class="btnList">
@@ -27,5 +29,5 @@
         <button class="btn" (click)="onLogin()">Logar</button>
       </div>
     </div>
-  </div>
+  </app-card-layout>
 </main>

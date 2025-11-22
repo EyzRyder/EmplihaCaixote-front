@@ -1,24 +1,32 @@
-<main>
-  <div>
-    <h2>Create Room</h2>
-    <input type="text" placeholder="Room name" [(ngModel)]="roomName" />
-    <button (click)="joinRoom(roomName)">Join</button>
+<main class="room bg_red_blue">
+  <app-card-layout>
+    <div class="room_content">
+      <h2>Salas</h2>
+      <div class="pesquisa_sala">
 
-    <button (click)="createRoom()">Create</button>
-  
-    <hr />
-  
-    <h2>Public Rooms</h2>
-    <div *ngIf="rooms.length === 0">No rooms available.</div>
-  
-    <ul>
-      <li *ngFor="let r of rooms">
-        <strong>{{ r.name }}</strong>
-        ({{ r.players.length }}/{{ r.maxPlayers }})
-  
-        <button (click)="joinRoom(r.id)">Join</button>
-      </li>
-    </ul>
-  </div>
-  
+      <label for="room">Pesquisar Sala</label>
+      <input id="room" type="text" placeholder="Room name" [(ngModel)]="roomName" />
+      <button class="btn" (click)="joinRoom(roomName)">Entrar</button>
+    </div>
+
+      <hr />
+
+      <h2>Salas Public </h2>
+      <div *ngIf="rooms.length === 0">No rooms available.</div>
+      <div *ngIf="rooms.length > 0">
+        <ul>
+          <li *ngFor="let r of rooms">
+            <strong>{{ r.name }}</strong>
+            ({{ r.players.length }}/{{ r.maxPlayers }})
+
+            <button (click)="joinRoom(r.id)">Join</button>
+          </li>
+        </ul>
+      </div>
+
+      <button class="btn" (click)="createRoom()">Create</button>
+
+    </div>
+  </app-card-layout>
+
 </main>

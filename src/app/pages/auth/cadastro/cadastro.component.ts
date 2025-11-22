@@ -4,10 +4,11 @@ import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { AuthRequest } from '../../../services/auth';
+import { CardLayoutComponent } from '../../../components/card-layout/card-layout.component';
 
 @Component({
   selector: 'app-cadastro',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,CardLayoutComponent],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.scss'
 })

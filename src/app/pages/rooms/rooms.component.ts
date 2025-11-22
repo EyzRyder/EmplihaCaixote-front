@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { WsService } from '../../services/ws.service';
+import { CardLayoutComponent } from "../../components/card-layout/card-layout.component";
 
 @Component({
   selector: 'app-rooms',
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule, CardLayoutComponent], 
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss'
 })

@@ -1,0 +1,16 @@
+div.card-layout{
+    flex-grow:1;
+    backdrop-filter: blur(3px); 
+    background-color: rgb(217, 217, 217,.7);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 1s ease-out;
+    display: flex;
+      .content{
+        background-image: linear-gradient(#918C8C, #5E5E5E);
+        padding: 2.5rem 2rem ;
+        border-radius: 12px;
+        transition: all 1s ease-out;
+        flex-grow:1;
+      }
+}

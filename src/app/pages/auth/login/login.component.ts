@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthRequest } from '../../../services/auth';
+import { CardLayoutComponent } from '../../../components/card-layout/card-layout.component';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,CardLayoutComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
