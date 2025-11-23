@@ -6,19 +6,9 @@ import { Router, RouterLink } from '@angular/router';
 import { WsService } from '../../services/ws.service';
 import { CardLayoutComponent } from '../../components/card-layout/card-layout.component';
 import { UserService } from '../../services/user.service';
+import { RoomInfo } from '../../services/game';
 
-interface RoomInfo {
-  id: string;
-  name: string;
-  isPrivate: boolean;
-  players: { id: string; username: string }[];
-  maxPlayers: number
-  ready: Record<string, boolean>;
-  board: number[][]; // connect 4 6x7
-  turn: number; // index do jogador (0 ou 1)
-  gameStarted: boolean;
 
-}
 
 @Component({
   selector: 'app-rooms',

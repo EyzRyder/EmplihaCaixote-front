@@ -1,21 +1,37 @@
 <main class="lobby bg_red_blue">
   <app-card-layout>
 
-    <div *ngIf="room(); else loading" class="container">
-      <h2>{{ room().name }}</h2>
-      <p *ngIf="room().isPrivate">Sala Privada</p>
-      <p *ngIf="room().isPrivate==false">Sala Publica</p>
+    <div *ngIf="room() !==null; else loading" class="container">
+      <h2>{{ room()?.name }}</h2>
+      <p *ngIf="room()?.isPrivate">Codigo sala privada: {{room()?.id}}</p>
+      <p *ngIf="room()?.isPrivate==false">Codigo sala publica: {{room()?.id}}</p>
 
       <h3>Jogadores:</h3>
-      <ul *ngIf="players().length > 0; else noPlayers">
-        <li *ngFor="let p of players()">{{ p.username }}</li>
+      <ul class="players_list" *ngIf="players().length > 0; else noPlayers ">
+        <li *ngFor="let p of players()">
+          Jogador: {{ p.username }} 
+          <span class="ready" *ngIf="room()?.ready?.[p.id]; else notReady">
+            Está pronto
+          </span>
+        
+          <ng-template #notReady>
+            <span class="not-ready">não está pronto</span>
+          </ng-template>
+        </li>
+        <div *ngIf="players().length === 1">
+          <strong>Aguardadndo Outro player...</strong>
+        </div>
       </ul>
       <ng-template #noPlayers>
         <p>Aguardando outro jogador...</p>
       </ng-template>
 
-      <div *ngIf="players().length === 2">
-        <strong>Iniciando jogo...</strong>
+ 
+      <div class="btnList">
+        <button class="btn" (click)="goBack()">Sair</button>
+        <a routerLink="/perfil"><button class="btn">Perfil</button></a>
+        <a routerLink="/loja"><button class="btn">Loja</button></a>
+        <button class="btn" >Estou Pronto</button>
       </div>
     </div>
 

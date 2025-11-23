@@ -2,6 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { WsService } from '../ws.service';
 import { User } from '../auth';
+import { RoomInfo } from '../game';
 
 //
 // --- WebSocket Message Types ---
@@ -28,7 +29,7 @@ type ServerMessage =
   providedIn: 'root',
 })
 export class GameService {
-  room = signal<any | null>(null);
+  room = signal<RoomInfo | null>(null);
   hasRoom = computed(() => !!this.room());
 
   constructor(private ws: WsService, private router: Router) {

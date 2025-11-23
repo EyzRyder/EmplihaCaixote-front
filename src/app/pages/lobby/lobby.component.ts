@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from '../../services/store/game.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { CardLayoutComponent } from '../../components/card-layout/card-layout.component';
 import { UserService } from '../../services/user.service';
 import { WsService } from '../../services/ws.service';
@@ -16,12 +16,14 @@ export class LobbyComponent {
   roomId = signal('');
   room = computed(() => this.game.room());
   players = computed(() => this.room()?.players ?? []);
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public game: GameService,
     public userService: UserService,
-    private ws: WsService
+    private ws: WsService,
+    private location: Location,
   ) {}
   
   ngOnInit() {
@@ -54,6 +56,18 @@ export class LobbyComponent {
         this.game.joinRoom(id, user);
       });
     });
+  }
+
+   // ---------------------------------------------------------------------------
+  // Navegação
+  // ---------------------------------------------------------------------------
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
 }
