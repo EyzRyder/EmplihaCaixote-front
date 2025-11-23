@@ -12,16 +12,18 @@
       <hr />
 
       <h2>Salas Public </h2>
-        <div class="sala_publicas" *ngIf="rooms.length === 0">Nenhuma sala disponivel.</div>
-        <ul class="sala_publicas" *ngIf="rooms.length > 0">
+        <ul class="sala_publicas" *ngIf="rooms().length > 0; else loading">
 
-          <li *ngFor="let r of rooms">
+          <li *ngFor="let r of rooms()">
             <strong>{{ r?.name }}</strong>
             ({{ r.players.length }}/{{ r.maxPlayers }})
 
             <button class="btn" (click)="joinRoom(r.id)">Entrar</button>
           </li>
         </ul>
+        <ng-template #loading>
+          <div class="sala_publicas">Nenhuma sala disponivel.</div>
+        </ng-template>
 
       <div class="btnList">
         <button class="btn" (click)="goBack()">Voltar</button>

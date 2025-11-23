@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { GameService } from '../../services/store/game.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
@@ -6,6 +6,19 @@ import { Router, RouterLink } from '@angular/router';
 import { WsService } from '../../services/ws.service';
 import { CardLayoutComponent } from '../../components/card-layout/card-layout.component';
 import { UserService } from '../../services/user.service';
+
+interface RoomInfo {
+  id: string;
+  name: string;
+  isPrivate: boolean;
+  players: { id: string; username: string }[];
+  maxPlayers:number
+  ready: Record<string, boolean>;
+  board: number[][]; // connect 4 6x7
+  turn: number; // index do jogador (0 ou 1)
+  gameStarted: boolean;
+
+}
 
 @Component({
   selector: 'app-rooms',
@@ -17,51 +30,75 @@ export class RoomsComponent {
   roomCode = '';
   roomName = '';
   playerName = '';
-  rooms: any[] = [];
+
+  private _rooms = signal<RoomInfo[]>([]);
+  rooms = computed(() => this._rooms());
 
   constructor(
     private ws: WsService,
     public game: GameService,
-    private _userService: UserService,
-    private _router: Router,
-    private _location: Location,
+    private userService: UserService,
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit() {
-    this.initWs()
+    this.initWebSocket();
   }
 
-  private initWs() {
+  private initWebSocket() {
     this.ws.connect();
 
-    this.ws.onReady().subscribe(() => {
+    if (this.ws.isOpen()) {
+      this.ws.send({ type: 'get-rooms' });
+      return;
+    }
+
+    this.ws.onOpen().subscribe(() => {
       this.ws.send({ type: 'get-rooms' });
     });
 
-    this.ws.onMessage().subscribe((msg) => {
-      if (msg.type === 'rooms-updated') {
-        this.rooms = msg.rooms;
+    this.ws.onMessage().subscribe((msg: any) => {
+      // console.log(msg);
+      
+      switch (msg.type) {
+        case 'rooms-updated':
+          this._rooms.set(msg.rooms);
+          console.log(this.rooms());
+          
+          break;
       }
     });
   }
-
+  // ---------------------------------------------------------------------------
+  // Ações
+  // ---------------------------------------------------------------------------
   createRoom(isPrivate: boolean) {
-    const user = this._userService.user();
+    const user = this.userService.user();
     if (!user) return;
-    this.game.createRoom({ name: 'Sala de ' + user.username, user, isPrivate });
+
+    const autoName = `Sala de ${user.username}`;
+    this.game.createRoom({ name: autoName, user, isPrivate });
   }
 
   joinRoom(id: string) {
-    const user = this._userService.user();
+    const user = this.userService.user();
     if (!user) return;
-    this._router.navigate(['/sala', id]);
+
+    this.router.navigate(['/sala', id]);
   }
+
+
+
+  // ---------------------------------------------------------------------------
+  // Navegação
+  // ---------------------------------------------------------------------------
 
   goBack(): void {
     if (window.history.length > 1) {
-      this._location.back();
+      this.location.back();
     } else {
-      this._router.navigate(['/']);
+      this.router.navigate(['/']);
     }
   }
 }
