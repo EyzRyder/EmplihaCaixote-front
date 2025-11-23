@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import {  Component, computed, signal } from '@angular/core';
 import { GameService } from '../../services/store/game.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
@@ -12,7 +12,7 @@ interface RoomInfo {
   name: string;
   isPrivate: boolean;
   players: { id: string; username: string }[];
-  maxPlayers:number
+  maxPlayers: number
   ready: Record<string, boolean>;
   board: number[][]; // connect 4 6x7
   turn: number; // index do jogador (0 ou 1)
@@ -39,14 +39,8 @@ export class RoomsComponent {
     public game: GameService,
     private userService: UserService,
     private router: Router,
-    private location: Location
-  ) {}
-
-  ngOnInit() {
-    this.initWebSocket();
-  }
-
-  private initWebSocket() {
+    private location: Location,
+  ) {
     this.ws.connect();
 
     if (this.ws.isOpen()) {
@@ -58,16 +52,28 @@ export class RoomsComponent {
       this.ws.send({ type: 'get-rooms' });
     });
 
+   }
+
+  ngOnInit() {
+    this.initWebSocket();
+  }
+
+  private initWebSocket() {
+
     this.ws.onMessage().subscribe((msg: any) => {
       // console.log(msg);
-      
-      switch (msg.type) {
-        case 'rooms-updated':
-          this._rooms.set(msg.rooms);
-          console.log(this.rooms());
-          
-          break;
-      }
+        switch (msg.type) {
+          case 'rooms-updated':
+            this._rooms.set(msg.rooms);
+            console.log(msg);
+            for(const room of this.rooms()){
+              if(room.players.find(p=>p.id==this.userService.user()?.id)){
+                this.router.navigate(['/sala', room.id]);
+              }
+            }
+
+            break;
+        }
     });
   }
   // ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { BehaviorSubject, filter, first, Subject } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class WsService implements OnDestroy {
   private sendQueue: any[] = [];
   private isManualClose = false;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.connect();
   }
 
@@ -44,11 +44,15 @@ export class WsService implements OnDestroy {
     };
     // ---- on message --------------------------------------------------------
     this.ws.onmessage = (ev) => {
+      this.ngZone.run(() => {
+
       try {
         this.message$.next(JSON.parse(ev.data));
       } catch {
         console.warn('[WS] Received non-JSON message', ev.data);
       }
+    })
+
     };
     // ---- on error ----------------------------------------------------------
     this.ws.onerror = (err) => {
