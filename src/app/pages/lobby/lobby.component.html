@@ -1,21 +1,25 @@
 <main class="lobby bg_red_blue">
-<app-card-layout>
+  <app-card-layout>
 
-<div class="container">
-    <h2>Sala: {{ room().name }}</h2>
-  <p *ngIf="room().isPrivate">Sala Privada</p>
-  <p *ngIf="room().isPrivate==false">Sala Publica</p>
+    <div *ngIf="room()" class="container">
+      <h2>{{ room().name }}</h2>
+      <p *ngIf="room().isPrivate">Sala Privada</p>
+      <p *ngIf="room().isPrivate==false">Sala Publica</p>
 
-    <h3>Jogadores:</h3>
-    <ul>
-      <li *ngFor="let p of players">{{ p.name }}</li>
-    </ul>
-  
-    <p>Aguardando outro jogador...</p>
-  
-    <div *ngIf="players.length === 2">
-      <strong>Iniciando jogo...</strong>
+      <h3>Jogadores:</h3>
+      <ul>
+        <li *ngFor="let p of players">{{ p.username }}</li>
+      </ul>
+
+      <p>Aguardando outro jogador...</p>
+
+      <div *ngIf="players.length === 2">
+        <strong>Iniciando jogo...</strong>
+      </div>
     </div>
-  </div>
+
+    <div *ngIf="room()==null" class="container">
+      looding...
+</div>
   </app-card-layout>
 </main>

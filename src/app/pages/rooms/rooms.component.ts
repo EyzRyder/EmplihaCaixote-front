@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { WsService } from '../../services/ws.service';
-import { CardLayoutComponent } from "../../components/card-layout/card-layout.component";
+import { CardLayoutComponent } from '../../components/card-layout/card-layout.component';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-rooms',
-  imports: [CommonModule, FormsModule, CardLayoutComponent,RouterLink], 
+  imports: [CommonModule, FormsModule, CardLayoutComponent, RouterLink],
   templateUrl: './rooms.component.html',
-  styleUrl: './rooms.component.scss'
+  styleUrl: './rooms.component.scss',
 })
 export class RoomsComponent {
-  roomCode = "";
+  roomCode = '';
   roomName = '';
   playerName = '';
   rooms: any[] = [];
@@ -28,6 +28,10 @@ export class RoomsComponent {
   ) {}
 
   ngOnInit() {
+    this.initWs()
+  }
+
+  private initWs() {
     this.ws.connect();
 
     this.ws.onReady().subscribe(() => {
@@ -35,28 +39,22 @@ export class RoomsComponent {
     });
 
     this.ws.onMessage().subscribe((msg) => {
-      console.log(msg);
-      if (msg.type === 'rooms-fetched') {
-        console.log(msg.rooms);
-        this.rooms = msg.rooms
-      }
       if (msg.type === 'rooms-updated') {
-        this.rooms = msg.rooms
+        this.rooms = msg.rooms;
       }
     });
   }
 
-
-  createRoom(isPrivate:boolean) {
-    const user = this._userService.user()
-    if(!user) return 
-    this.game.createRoom({name:"Sala de "+user.username,user,isPrivate});
+  createRoom(isPrivate: boolean) {
+    const user = this._userService.user();
+    if (!user) return;
+    this.game.createRoom({ name: 'Sala de ' + user.username, user, isPrivate });
   }
 
   joinRoom(id: string) {
-    const user =this._userService.user()
+    const user = this._userService.user();
     if (!user) return;
-    this.game.joinRoom(id,user)
+    this._router.navigate(['/sala', id]);
   }
 
   goBack(): void {
@@ -66,5 +64,4 @@ export class RoomsComponent {
       this._router.navigate(['/']);
     }
   }
-
 }
