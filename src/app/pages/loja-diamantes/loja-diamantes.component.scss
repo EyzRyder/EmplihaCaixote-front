@@ -1,0 +1,220 @@
+.store-modal-overlay {
+    // Usar a classe '.center' global
+    width: 95%;          // Garante que o modal ocupe a maior parte da tela, mas com margem.
+    max-width: 800px;    // Permite que ele cresça em telas grandes.
+    min-width: 300px;
+    background-color: rgba(255, 255, 255, 0.75); // Fundo semi-transparente branco/cinza
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 3px solid black; // Borda preta, opcional
+    z-index: 100;
+
+    .store-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        font-family: 'VCR_OSD_MONO', sans-serif;
+    }
+
+    .store-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; // Essencial para centralizar o título LOJA
+
+    .back-btn {
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        
+        // --- Diminuir VOLTAR ---
+        font-size: 1rem;      // Reduz o tamanho da fonte
+        gap: 0.2rem;          // Reduz o espaçamento
+        
+        img {
+            width: 100px; 
+            height: 70px;
+            max-width: 100%; 
+            height: auto; 
+            max-width: 100px;
+            max-height: 70px; 
+            display: block;
+        }
+    }
+
+    .store-title {
+        // --- Centralizar LOJA ---
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        color: black;
+        text-shadow: none;
+        z-index: 5;
+    }
+}
+
+// O ícone 'X' na loja geralmente é o .close-btn
+.close-btn {
+    // --- Aumentar X (Se o X estiver no modal) ---
+    color: #FF0000;
+    font-size: 2.5rem; // Aumenta o tamanho da fonte para torná-lo maior
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1; // Garante melhor alinhamento
+    z-index: 10;
+}
+    }
+
+    .store-tabs {
+        display: flex;
+        justify-content: space-around;
+        gap: 0.5rem;
+        border-bottom: 2px solid #D0D0D0; // Linha divisória
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            color: black;
+
+            &.active {
+                border-bottom: 4px solid black; // Indicador da aba ativa
+            }
+        }
+    }
+
+    .store-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+
+        .store-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.05); // Fundo leve para o item
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #555555; // Borda sutil
+
+            .item-icon-border {
+                // Simular o círculo/borda do ícone
+                background-color: #2D2D2D;
+                border-radius: 50%;
+                width: 80px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+
+            .item-icon {
+                width: 50px;
+                height: 50px;
+                // Ajuste para as cores dos ícones (ex: cadeado com fundo cinza)
+            }
+            
+            .item-name {
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+
+            .item-description {
+                font-size: 0.75rem;
+                height: 2.5rem; // Altura fixa para alinhamento
+            }
+            
+            .item-price {
+                color: #FFD700; // Cor de moeda/diamante
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    .store-footer {
+        display: flex;
+        justify-content: space-around;
+        padding-top: 1rem;
+
+        .footer-btn {
+            padding: 0.7rem 2rem;
+            border-radius: 8px;
+            background-color: white;
+            border: 2px solid black;
+            font-size: 1.1rem;
+
+            &.active-btn {
+                background-color: #00FF00; // Cor de destaque para "LOJA"
+            }
+        }
+    }
+
+
+.resource-bar {
+    position: absolute;
+    margin-top: 0.1rem; // Ajustar a posição vertical no topo da tela
+    right: 1rem; // Ajustar a posição horizontal no canto direito
+
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; // Espaço entre o ícone da Moeda e o do Diamante
+
+    // Fundo semitransparente que parece envolver a área na imagem
+    background-color: rgba(255, 255, 255, 0.3); 
+    padding: 0.5rem 1rem;
+    border-radius: 0 0 10px 10px; // Apenas as bordas inferiores arredondadas
+    margin-right: 5rem;
+    margin-top: 0.8rem;
+
+    z-index: 20; // Garantir que fique acima do fundo do jogo
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.resource-icon {
+    width: 25px; // Tamanho base do ícone
+    height: 25px;
+    // O ícone circular (Moeda) e em forma de diamante devem ser feitos com CSS ou SVG.
+    // Usaremos CSS para o formato e cor.
+}
+
+.coin-icon {
+    background-color: #FFFF00; // Amarelo brilhante
+    border-radius: 50%;
+    // Adicionar um leve contorno interno para simular o efeito 3D
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1); 
+}
+
+
+
+.resource-value {
+    font-family: 'VCR_OSD_MONO', sans-serif;
+    color: white; // Cor branca do número
+    font-size: 1.5rem; // Tamanho grande para destaque
+    font-weight: bold;
+    // Efeito de sombra para simular a cor "pixelada" branca com contorno ou destaque
+    text-shadow: 
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+    
+    // Alinhamento para garantir que o número fique bem ao lado do ícone
+    line-height: 1; 
+}

@@ -1,0 +1,84 @@
+<main class="store-screen bg_red_blue">
+    <div class="store-modal-overlay center">
+        <div class="store-container">
+            <div class="store-header">
+                <a routerLink="/">
+                <button class="back-btn">
+                    <img src="svgs\voltar.svg" alt="Voltar">
+                </button>
+                </a>
+                <h2 class="title store-title">LOJA</h2>
+                <div class="resource-bar">
+                    <div class="resource-item">
+                        <div class="resource-icon coin-icon"></div>
+                        <span class="resource-value">{{moeda()}}</span>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="resource-icon diamond-icon"></div>
+                        <span class="resource-value">💎 {{diamante()}}</span>
+                    </div>
+                </div>
+                <div class="close-btn">X</div>
+            </div>
+
+            <div class="store-tabs">
+                <a routerLink="/loja-poderes"><button class="tab">PODERES</button></a>
+                <a routerLink="/loja-skins"><button class="tab">SKINS</button></a>
+                <a routerLink="/loja-cenarios"><button class="tab">CENÁRIOS</button></a>
+                <button class="tab active">MOEDAS</button>
+                <a routerLink="/loja-diamantes"><button class="tab">DIAMANTES</button></a>
+            </div>
+
+            <div class="store-content">
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/moeda1.png" alt="MOEDA 1" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Moeda 1</p>
+                        <p class="item-description">100 moedas</p>
+                        <button class="item-price" (click)="exchangeCoinsForGems(100, 5)">💎 5</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/moeda2.png" alt="MOEDA 2" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">MOEDA 2</p>
+                        <p class="item-description"> 500 moedas</p>
+                        <button class="item-price" (click)="exchangeCoinsForGems(500, 20)">💎 20</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/moeda1.png" alt="MOEDA 3" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Moeda 3</p>
+                        <p class="item-description"> 2000 moedas</p>
+                        <button class="item-price" (click)="exchangeCoinsForGems(2000, 50)">💎 50</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/moeda4.png" alt="MOEDA 4" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Moeda 4</p>
+                        <p class="item-description">10000 moedas</p>
+                        <button class="item-price" (click)="exchangeCoinsForGems(10000, 200)">💎 200</button>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="store-footer">
+                <a routerLink="/perfil"><button class="btn footer-btn">PERFIL</button></a>
+                <button class="btn footer-btn active-btn">LOJA</button>
+                <a routerLink="/comecar"><button class="btn footer-btn">COMEÇAR</button></a>
+            </div>
+        </div>
+    </div>
+</main>

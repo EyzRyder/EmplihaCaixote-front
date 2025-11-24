@@ -1,0 +1,84 @@
+<main class="store-screen bg_red_blue">
+    <div class="store-modal-overlay center">
+        <div class="store-container">
+            <div class="store-header">
+                <a routerLink="/">
+                <button class="back-btn">
+                    <img src="svgs\voltar.svg" alt="Voltar">
+                </button>
+                </a>
+                <h2 class="title store-title">LOJA</h2>
+                <div class="resource-bar">
+                    <div class="resource-item">
+                        <div class="resource-icon coin-icon"></div>
+                        <span class="resource-value">{{moeda()}}</span>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="resource-icon diamond-icon"></div>
+                        <span class="resource-value">{{diamante()}}</span>
+                    </div>
+                </div>
+                <div class="close-btn">X</div>
+            </div>
+
+            <div class="store-tabs">
+                <button class="tab active">PODERES</button>
+                <a routerLink="/loja-skins"><button class="tab">SKINS</button></a>
+                <a routerLink="/loja-cenarios"><button class="tab">CENÁRIOS</button></a>
+                <a routerLink="/loja-moedas"><button class="tab">MOEDAS</button></a>
+                <a routerLink="/loja-diamantes"><button class="tab">DIAMANTES</button></a>
+            </div>
+
+            <div class="store-content">
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="pixels\poder1.png" alt="Poder 1" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Elimina caixa</p>
+                        <p class="item-description">Uma caixa aleatória é eliminada</p>
+                        <button class="item-price" (click)="buyPower({powerId: 1, amount: 1, coins: 1500})">1500</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="pixels\poder2.png" alt="Poder 1" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Elimina linha</p>
+                        <p class="item-description"> Elimina todas as caixas da última linha</p>
+                        <button class="item-price" (click)="buyPower({powerId: 2, amount: 1, coins: 1500})">1500</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="pixels\poder3.png" alt="Poder 1" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Rudação de tempo</p>
+                        <p class="item-description"> Reduz o tempo restante do adversário pela metade.</p>
+                        <button class="item-price" (click)="buyPower({powerId: 3, amount: 1, coins: 1500})">1500</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="pixels\poder4.png" alt="Poder 1" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">Bloqueia Coluna</p>
+                        <p class="item-description">Uma coluna fica bloqueada para jogada</p>
+                        <button class="item-price" (click)="buyPower({powerId: 4, amount: 1, coins: 1500})">1500</button>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="store-footer">
+                <a routerLink="/perfil"><button class="btn footer-btn">PERFIL</button></a>
+                <button class="btn footer-btn active-btn">LOJA</button>
+                <a routerLink="/comecar"><button class="btn footer-btn">COMEÇAR</button></a>
+            </div>
+        </div>
+    </div>
+</main>

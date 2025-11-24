@@ -6,7 +6,7 @@ import { BehaviorSubject, filter, first, Subject } from 'rxjs';
 })
 export class WsService implements OnDestroy {
   private ws?: WebSocket;
-  private url = 'ws://192.168.0.106:8080';
+  private url = 'ws://192.168.0.2:8080';
 
   private reconnectInterval = 2000; // 2s
   private reconnectAttempts = 0;

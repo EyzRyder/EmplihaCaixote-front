@@ -7,7 +7,7 @@ import { AuthRequest, AuthResponse, User } from './auth';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://192.168.0.106:8080/auth';
+  private apiUrl = 'http://192.168.0.2:8080/auth';
   private _user = signal<User | null>(
     JSON.parse(localStorage.getItem('auth_user') || 'null'),
   );

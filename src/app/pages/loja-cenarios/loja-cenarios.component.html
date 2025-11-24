@@ -1,0 +1,84 @@
+<main class="store-screen bg_red_blue">
+    <div class="store-modal-overlay center">
+        <div class="store-container">
+            <div class="store-header">
+                <a routerLink="/">
+                <button class="back-btn">
+                    <img src="svgs\voltar.svg" alt="Voltar">
+                </button>
+                </a>
+                <h2 class="title store-title">LOJA</h2>
+                <div class="resource-bar">
+                    <div class="resource-item">
+                        <div class="resource-icon coin-icon"></div>
+                        <span class="resource-value">{{moeda()}}</span>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="resource-icon diamond-icon"></div>
+                        <span class="resource-value">💎 {{diamante()}}</span>
+                    </div>
+                </div>
+                <div class="close-btn">X</div>
+            </div>
+
+            <div class="store-tabs">
+                <a routerLink="/loja-poderes"><button class="tab">PODERES</button></a>
+                <a routerLink="/loja-skins"><button class="tab">SKINS</button></a>
+                <button class="tab active">CENÁRIOS</button>
+                <a routerLink="/loja-moedas"><button class="tab">MOEDAS</button></a>
+                <a routerLink="/loja-diamantes"><button class="tab">DIAMANTES</button></a>
+            </div>
+
+            <div class="store-content">
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/diamante1.png" alt="CENARIO 1" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">CENARIO 1</p>
+                        <p class="item-description"></p>
+                        <button class="item-price" (click)="buySkinOrScenario(201, 50)">💎 50</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/diamante2.png" alt="CENARIO 2" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">CENARIO 2</p>
+                        <p class="item-description"></p>
+                        <button class="item-price" (click)="buySkinOrScenario(202, 50)">💎 50</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/diamante3.png" alt="CENARIO 3" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">CENARIO 3</p>
+                        <p class="item-description"></p>
+                        <button class="item-price" (click)="buySkinOrScenario(203, 50)">💎 50</button>
+                    </div>
+                </div>
+                <div class="store-item">
+                    <div class="item-icon-border">
+                        <img src="/src/asstes/pixels/diamante4.png" alt="CENARIO 4" class="item-icon">
+                    </div>
+                    <div class="item-details">
+                        <p class="item-name">CENARIO 4</p>
+                        <p class="item-description"></p>
+                        <button class="item-price" (click)="buySkinOrScenario(204, 50)">💎 50</button>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="store-footer">
+                <a routerLink="/perfil"><button class="btn footer-btn">PERFIL</button></a>
+                <button class="btn footer-btn active-btn">LOJA</button>
+                <a routerLink="/comecar"><button class="btn footer-btn">COMEÇAR</button></a>
+            </div>
+        </div>
+    </div>
+</main>
