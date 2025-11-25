@@ -3,7 +3,6 @@
   <div *ngIf="authService.isLoggedIn()"  class="btnList">
     <a routerLink="/salas"><button class="btn">Iniciar</button></a>
     <a routerLink="/loja-poderes"><button class="btn">Loja</button></a>
-    <a routerLink="/perfil"><button class="btn">Perfil</button></a>
     <button (click)="authService.logout()" class="btn">Log out</button>
   </div>
   <div *ngIf="!authService.isLoggedIn()" class="btnList">
