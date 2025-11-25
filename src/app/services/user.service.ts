@@ -8,9 +8,10 @@ import { environment } from '../environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+
   private apiUrl = `${environment.apiUrl.host}${environment.apiUrl.ip}${environment.apiUrl.port}`;
   private _user = signal<User | null>(
-    JSON.parse(localStorage.getItem('auth_user') || 'null'),
+    JSON.parse(localStorage.getItem('auth_user') || 'null')
   );
   user = computed(() => this._user());
   isLoggedIn = computed(() => !!this._user());
@@ -22,12 +23,14 @@ export class UserService {
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
-      }),
+      })
     );
   }
 
   register(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"//auth/register", payload).pipe(
+    return this.http
+    .post<AuthResponse>(this.apiUrl+"/auth/register", payload)
+    .pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);

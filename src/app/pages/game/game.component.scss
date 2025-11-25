@@ -1,0 +1,446 @@
+// ========================================
+// VARIÁVEIS
+// ========================================
+
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$grid-bg: rgba(0, 0, 0, 0.2);
+$text-color: white;
+$cell-size: 64px;
+$grid-cols: 7;
+$grid-rows: 6;
+
+// ========================================
+// CONTAINER PRINCIPAL
+// ========================================
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  color: $text-color;
+  padding: 20px;
+  gap: 20px;
+  align-items: center;
+}
+
+// ========================================
+// HEADER
+// ========================================
+
+.game-header {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+
+  h1 {
+    font-size: 32px;
+    margin: 0 0 15px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.game-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  label {
+    font-size: 12px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4ecdc4;
+  }
+}
+
+// ========================================
+// GAME AREA
+// ========================================
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+// ========================================
+// COLUMN CONTROLS (BOTÕES SUPERIORES)
+// ========================================
+
+.column-controls {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+  width: fit-content;
+}
+
+.column-button {
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+
+  &.active:hover:not(:disabled) {
+    background: rgba(78, 205, 196, 0.8);
+    border-color: #4ecdc4;
+    transform: scale(1.05);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.blocked {
+    background: rgba(255, 68, 68, 0.3);
+    border-color: #ff6b6b;
+    opacity: 0.7;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(2px);
+  }
+}
+
+// ========================================
+// GAME GRID
+// ========================================
+
+.game-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px 0;
+}
+
+.game-grid {
+  position: relative;
+  width: 448px; // 7 * 64px
+  height: 384px; // 6 * 64px
+  background: $grid-bg;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+// Grid visual
+.grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0;
+  pointer-events: none;
+}
+
+.grid-cell {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+}
+
+// ========================================
+// BOXES (PEÇAS)
+// ========================================
+
+.box {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  z-index: 10;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+// ========================================
+// TURN TIMER
+// ========================================
+
+.turn-timer-section {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+
+  &.my-turn {
+    background: rgba(78, 205, 196, 0.15);
+    border-color: #4ecdc4;
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+  }
+}
+
+.timer-container {
+  text-align: center;
+}
+
+.timer-label {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.timer-bar {
+  flex: 1;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+
+  .timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
+    transition: width 0.3s linear;
+  }
+}
+
+.timer-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4ecdc4;
+  min-width: 50px;
+  text-align: right;
+}
+
+// ========================================
+// POWERS
+// ========================================
+
+.powers-section {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+
+  h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+  }
+}
+
+.power-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  &.disabled {
+    opacity: 0.6;
+    filter: grayscale(30%);
+  }
+}
+
+.btn-power {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  .power-buttons.disabled & {
+    opacity: 0.5;
+    filter: grayscale(30%);
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ========================================
+// GAME OVER MODAL
+// ========================================
+
+.game-over-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h2 {
+  font-size: 32px;
+  margin: 0 0 30px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.win-message {
+  color: #4caf50;
+}
+
+.lose-message {
+  color: #ff6b6b;
+}
+
+.tie-message {
+  color: #ffd700;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-action {
+  padding: 12px 30px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ========================================
+// RESPONSIVO
+// ========================================
+
+@media (max-width: 600px) {
+  .game-container {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .game-header h1 {
+    font-size: 24px;
+  }
+
+  .game-stats {
+    gap: 20px;
+  }
+
+  .game-grid {
+    width: 336px; // 7 * 48px
+    height: 288px; // 6 * 48px
+  }
+
+  .column-button,
+  .box {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .power-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 24px;
+  }
+}

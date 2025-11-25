@@ -1,1 +1,136 @@
-<p>game works!</p>
+<div class="game-container">
+  <!-- HEADER -->
+  <header class="game-header">
+    <h1>🎮 Connect Four - Em Jogo</h1>
+    <div class="game-stats">
+      <div class="stat">
+        <label>Tempo de Jogo</label>
+        <span class="value">⏱ {{ getGameTimeFormatted() }}</span>
+      </div>
+      <div class="stat">
+        <label>Status</label>
+        <span class="value" [class.my-turn]="timerInfo.isMyTurn">
+          {{ getCurrentPlayerDisplay() }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- GAME AREA -->
+  <div class="game-area">
+    <!-- COLUNA DE CONTROLE SUPERIOR -->
+    <div class="column-controls">
+      <button
+        *ngFor="let col of [0, 1, 2, 3, 4, 5, 6]"
+        (click)="dropBox(col)"
+        [ngClass]="getColumnButtonClass(col)"
+        [disabled]="
+          !timerInfo.isMyTurn || gameState.gameOver || isColumnBlocked(col)
+        "
+      >
+        ⬇
+      </button>
+    </div>
+
+    <!-- GRID PRINCIPAL -->
+    <div class="game-grid-wrapper">
+      <div class="game-grid">
+        <!-- Caixas do jogo -->
+        <div
+          *ngFor="let box of boxes"
+          class="box"
+          [style.left.px]="box.col * 64"
+          [style.top.px]="box.row * 64"
+          [style.backgroundColor]="getPlayerColorHex(box.player)"
+        ></div>
+
+        <!-- Grid visual (linhas) -->
+        <div class="grid-lines">
+          <div
+            *ngFor="
+              let i of [
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+                18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+                34, 35, 36, 37, 38, 39, 40, 41
+              ]
+            "
+            class="grid-cell"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMER DO TURNO -->
+  <div class="turn-timer-section" [class.my-turn]="timerInfo.isMyTurn">
+    <div class="timer-container">
+      <div class="timer-label">⏱ Tempo do Turno</div>
+      <div class="timer-display">
+        <div class="timer-bar">
+          <div class="timer-fill" [style.width.%]="getTimePercentage()"></div>
+        </div>
+        <div class="timer-text">{{ timerInfo.myTimeLeft }}s</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PODERES -->
+  <div class="powers-section">
+    <h3>⚡ Poderes</h3>
+    <div class="power-buttons" [class.disabled]="timerInfo.isMyTurn">
+      <button
+        (click)="usePower('clear_bottom_line')"
+        class="btn-power"
+        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
+      >
+        🧹 Limpar Linha Inferior
+      </button>
+      <button
+        (click)="usePower('eliminate_box')"
+        class="btn-power"
+        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
+      >
+        💥 Eliminar Caixa
+      </button>
+      <button
+        (click)="usePower('reduce_opponent_time')"
+        class="btn-power"
+        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
+      >
+        ⏰ Reduzir Tempo
+      </button>
+      <button
+        (click)="usePower('block_column', { col: 0 })"
+        class="btn-power"
+        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
+    >
+      🚫 Bloquear Coluna
+    </button>
+    </div>
+  </div>
+
+  <!-- STATUS DO JOGO -->
+  <div *ngIf="gameState.gameOver" class="game-over-modal">
+    <div class="modal-content">
+      <h2 *ngIf="gameState.winner === 'tie'" class="tie-message">
+        🤝 Jogo Empatou!
+      </h2>
+      <h2 *ngIf="gameState.winner === gameState.myId" class="win-message">
+        🎉 Você Ganhou!
+      </h2>
+      <h2
+        *ngIf="
+          gameState.winner !== 'tie' && gameState.winner !== gameState.myId
+        "
+        class="lose-message"
+      >
+        😢 Você Perdeu
+      </h2>
+      <div class="modal-buttons">
+        <button class="btn-action" (click)="navigateToLobby()">
+          Voltar ao Lobby
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

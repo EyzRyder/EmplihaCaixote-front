@@ -16,7 +16,6 @@ export class NoReuseStrategy implements RouteReuseStrategy {
   }
 
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-    const reusablePaths = ['salas', 'sala/:id']; 
-    return !reusablePaths.includes(future.routeConfig?.path || '');
+    return future.routeConfig === curr.routeConfig;
   }
 }
