@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-loja-poderes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './loja-poderes.component.html',
   styleUrl: './loja-poderes.component.scss'
 })

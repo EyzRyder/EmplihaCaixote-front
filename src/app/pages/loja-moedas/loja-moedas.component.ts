@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, Signal } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Observable, tap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 export interface ExchangeResponse {
   success: boolean;
@@ -11,7 +12,7 @@ export interface ExchangeResponse {
 
 @Component({
   selector: 'app-loja-moedas',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './loja-moedas.component.html',
   styleUrl: './loja-moedas.component.scss'
 })
