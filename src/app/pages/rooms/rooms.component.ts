@@ -164,10 +164,6 @@ export class RoomsComponent {
    * Voltar para a página anterior
    */
   goBack(): void {
-    if (window.history.length > 1) {
-      this.location.back();
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.router.navigate(['/home']);
   }
 }
