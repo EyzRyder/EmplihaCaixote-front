@@ -40,7 +40,8 @@ export class LoginComponent {
         this._router.navigate(['/salas']); 
       },
       error: (err) => {
-        this.error = err.error?.message || 'Login failed';
+        console.error(err);
+        this.error = err.error?.message || 'Login falhou';
       },
     });
   }
