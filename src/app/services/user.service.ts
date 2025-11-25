@@ -16,10 +16,10 @@ export class UserService {
   user = computed(() => this._user());
   isLoggedIn = computed(() => !!this._user());
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/auth/login", payload).pipe(
+    return this.http.post<AuthResponse>(this.apiUrl + "/auth/login", payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
@@ -29,12 +29,20 @@ export class UserService {
 
   register(payload: AuthRequest): Observable<AuthResponse> {
     return this.http
-    .post<AuthResponse>(this.apiUrl+"/auth/register", payload)
-    .pipe(
+      .post<AuthResponse>(this.apiUrl + "/auth/register", payload)
+      .pipe(
+        tap((response) => {
+          this.setUser(response.user);
+          localStorage.setItem('auth_token', response.token);
+        }),
+      );
+  }
+
+  getUserDetails(): Observable<User> {
+    return this.http.get<User>(this.apiUrl + "/auth").pipe(
       tap((response) => {
-        this.setUser(response.user);
-        localStorage.setItem('auth_token', response.token);
-      }),
+        this.setUser(response);
+      })
     );
   }
 
@@ -54,7 +62,7 @@ export class UserService {
   }
 
   getUser() {
-    const user = localStorage.getItem('auth_user');
-    return user ? JSON.parse(user) : null;
+    const user = this._user();
+    return user ? user : null;
   }
 }

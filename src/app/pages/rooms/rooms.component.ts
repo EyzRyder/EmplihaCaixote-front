@@ -41,6 +41,7 @@ export class RoomsComponent {
   private initializeConnection(): void {
     // 🟢 CORREÇÃO: Simplificado - apenas chamar connect()
     this.ws.connect();
+    this.userService.getUserDetails()
 
     if (this.ws.isOpen()) {
       this.requestRoomsList();
