@@ -29,6 +29,7 @@ export class LojaCenariosComponent { // 🚨 Nome da classe alterado
     private http: HttpClient,
     private userService: UserService) {
     this.userService.getUserDetails().subscribe()
+    this.userService.getUserInventory().subscribe()
   }
 
   /**

@@ -22,6 +22,8 @@ export class LojaPoderesComponent {
     private http: HttpClient,
     private userService: UserService) {
     this.userService.getUserDetails().subscribe()
+    this.userService.getUserInventory().subscribe()
+
   }
 
   buyPower({ powerId, amount = 1, coins }: { powerId: number, amount: number, coins: number }) {

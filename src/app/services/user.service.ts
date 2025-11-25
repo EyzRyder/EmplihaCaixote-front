@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { AuthRequest, AuthResponse, User } from './auth';
+import { AuthRequest, AuthResponse, Inventory, User } from './auth';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -16,6 +16,10 @@ export class UserService {
   user = computed(() => this._user());
   isLoggedIn = computed(() => !!this._user());
 
+  inventory = signal<Inventory>({
+    powers: [],
+    skins: []
+  })
   constructor(private http: HttpClient) { }
 
   login(payload: AuthRequest): Observable<AuthResponse> {
@@ -42,6 +46,19 @@ export class UserService {
     return this.http.get<User>(this.apiUrl + "/auth").pipe(
       tap((response) => {
         this.setUser(response);
+      })
+    );
+  }
+
+  getUserInventory(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + "/shop/inventory").pipe(
+      tap((response) => {
+        this.inventory.set({
+          powers: response.skins,
+          skins: response.powers
+        });
+        console.log(this.inventory());
+        // this.setUser(response);
       })
     );
   }
