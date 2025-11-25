@@ -18,7 +18,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   login(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/login", payload).pipe(
+    return this.http.post<AuthResponse>(this.apiUrl+"/auth/login", payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
@@ -27,7 +27,7 @@ export class UserService {
   }
 
   register(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/register", payload).pipe(
+    return this.http.post<AuthResponse>(this.apiUrl+"//auth/register", payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
