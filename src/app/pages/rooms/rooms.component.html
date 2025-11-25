@@ -5,7 +5,7 @@
       <div class="pesquisa_sala">
 
         <label for="room">Pesquisar Sala</label>
-        <input id="room" type="text" placeholder="Codeigo da sala" [(ngModel)]="roomName" />
+        <input id="room" type="text" placeholder="Código da sala" [(ngModel)]="roomName" />
         <button class="btn" (click)="joinRoom(roomName)">Entrar</button>
       </div>
 
@@ -26,7 +26,7 @@
       </ng-template>
 
       <div class="btnList">
-        <button class="btn" (click)="goBack()">Voltar</button>
+        <button class="btn" (click)="goBack()">Sair</button>
         <a routerLink="/loja-poderes"><button class="btn">Loja</button></a>
         <button class="btn" (click)="createRoom(false)">Criar Sala Publica</button>
         <button class="btn" (click)="createRoom(true)">Criar Sala Privada</button>
