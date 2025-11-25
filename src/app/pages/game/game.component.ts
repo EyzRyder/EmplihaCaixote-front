@@ -524,14 +524,14 @@ export class GameComponent implements OnInit, OnDestroy {
   getBoxStyle(box: Box): any {
     const left = box.col * this.CELL_SIZE;
     const top = box.row * this.CELL_SIZE;
-    const color = box.player === 1 ? '#FF6B6B' : '#4ECDC4'; // Red ou Cyan
+    const color = box.player === 1 ? "/pixels/caixa_vermelho_o.png" : "/pixels/caixa_azul_o.png"; // Red ou Cyan
 
     return {
       left: left + 'px',
       top: top + 'px',
       width: this.CELL_SIZE + 'px',
       height: this.CELL_SIZE + 'px',
-      backgroundColor: color,
+      background: color,
     };
   }
 
@@ -562,8 +562,13 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   getPlayerColorHex(player: number): string {
-    return player === 1 ? '#FF6B6B' : '#4ECDC4';
-  }
+  const src = player === 1 
+    ? "/pixels/caixa_vermelho_x.png" 
+    : "/pixels/caixa_azul_o.png";
+
+  return `url('${src}')`;
+}
+
 
   getTimePercentage(): number {
     return Math.max(0, (this.timerInfo.myTimeLeft / this.TURN_TIME_MAX) * 100);

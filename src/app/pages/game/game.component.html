@@ -43,7 +43,8 @@
           class="box"
           [style.left.px]="box.col * 64"
           [style.top.px]="box.row * 64"
-          [style.backgroundColor]="getPlayerColorHex(box.player)"
+          [style.backgroundImage]="getPlayerColorHex(box.player)"
+          style="background-repeat: no-repeat; background-size: cover; background-position: center;"
         ></div>
 
         <!-- Grid visual (linhas) -->
