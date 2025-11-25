@@ -128,18 +128,73 @@
             .item-name {
                 font-weight: bold;
                 font-size: 1.1rem;
+                margin-bottom: 5px;
             }
 
-            .item-description {
+            .item-description1 {
+                position: relative;
                 margin-top: 0.2rem;
                 font-size: 0.9rem;
                 height: 2.5rem; // Altura fixa para alinhamento
             }
-            
+
+            .item-description1::after{
+                content: "";
+            }
+
+            .item-description1:hover::after{
+                content: "Uma caixa aleatória é eliminada.";
+            }
+
+            .item-description2 {
+                position: relative;
+                margin-top: 0.2rem;
+                font-size: 0.9rem;
+                height: 2.5rem; // Altura fixa para alinhamento
+            }
+
+            .item-description2::after{
+                content: "";
+            }
+
+            .item-description2:hover::after{
+                content: "Elimina todas as caixas da última linha.";
+            }
+            .item-description3 {
+                position: relative;
+                margin-top: 0.2rem;
+                font-size: 0.9rem;
+                height: 2.5rem; // Altura fixa para alinhamento
+                margin-bottom: 0.2rem;
+            }
+
+            .item-description3::after{
+                content: "";
+            }
+
+            .item-description3:hover::after{
+                content: "Reduz o tempo restante do adversário pela metade.";
+            }
+            .item-description4 {
+                position: relative;
+                margin-top: 0.2rem;
+                font-size: 0.9rem;
+                height: 2.5rem; // Altura fixa para alinhamento
+            }
+
+            .item-description4::after{
+                content: "";
+            }
+
+            .item-description4:hover::after{
+                content: "Uma coluna fica bloqueada para jogada.";
+            }
+
             .item-price {
                 color: #FFD700; // Cor de moeda/diamante
                 font-weight: bold;
                 font-size: 1.2rem;
+                margin-top: 20px;
             }
         }
     }
