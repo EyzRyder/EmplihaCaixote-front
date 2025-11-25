@@ -4,13 +4,13 @@ import { provideRouter, RouteReuseStrategy } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
-import { NoReuseStrategy } from './strategies/no-reuse-strategy';
+// import { NoReuseStrategy } from './strategies/no-reuse-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
-    { provide: RouteReuseStrategy, useClass: NoReuseStrategy }  
+    // { provide: RouteReuseStrategy, useClass: NoReuseStrategy }  
   ],
 };

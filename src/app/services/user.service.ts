@@ -2,12 +2,13 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { AuthRequest, AuthResponse, User } from './auth';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://192.168.0.2:8080/auth';
+  private apiUrl = `${environment.apiUrl.host}${environment.apiUrl.ip}${environment.apiUrl.port}`;
   private _user = signal<User | null>(
     JSON.parse(localStorage.getItem('auth_user') || 'null'),
   );
@@ -17,7 +18,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   login(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/login", payload).pipe(
+    return this.http.post<AuthResponse>(this.apiUrl+"/auth/login", payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
@@ -26,7 +27,7 @@ export class UserService {
   }
 
   register(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/register", payload).pipe(
+    return this.http.post<AuthResponse>(this.apiUrl+"//auth/register", payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
