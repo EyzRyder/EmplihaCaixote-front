@@ -44,6 +44,7 @@ export class CadastroComponent {
         this._router.navigate(['/salas']);
       },
       error: (err) => {
+        console.error(err);
         this.error = err.error?.message || 'Cadastro falhou';
       },
     });

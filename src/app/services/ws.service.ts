@@ -1,12 +1,13 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { BehaviorSubject, filter, first, Subject } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WsService implements OnDestroy {
   private ws?: WebSocket;
-  private url = 'ws://192.168.0.163:8080';
+  private url = `ws://${environment.apiUrl.ip}${environment.apiUrl.port}`;
 
   private reconnectInterval = 2000; // 2s
   private reconnectAttempts = 0;
