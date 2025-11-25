@@ -54,7 +54,7 @@ export class LojaCenariosComponent { // 🚨 Nome da classe alterado
       next: (response) => {
         const user = this.userService.user();
         if (user) {
-          this.userService.setUser({ ...user, gems: response.newGems });
+          this.userService.getUserDetails().subscribe()
         }
         console.log('Compra de Cenário bem-sucedida.');
       },

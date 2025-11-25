@@ -1,6 +1,6 @@
 <main class="home bg_red_blue">
-  <img src="/svgs/logo.svg"/>
-  <div *ngIf="authService.isLoggedIn()"  class="btnList">
+  <img src="/svgs/logo.svg" />
+  <div *ngIf="authService.isLoggedIn()" class="btnList">
     <a routerLink="/salas"><button class="btn">Iniciar</button></a>
     <a routerLink="/loja-poderes"><button class="btn">Loja</button></a>
     <button (click)="authService.logout()" class="btn">Log out</button>
@@ -9,5 +9,4 @@
     <a routerLink="/login"><button class="btn">Log in</button></a>
     <a routerLink="/cadastro"><button class="btn">Cadastro</button></a>
   </div>
-  <div class="exitBtn"></div>
 </main>
