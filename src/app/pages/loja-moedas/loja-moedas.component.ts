@@ -4,7 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Observable, tap } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { CommonModule, NgSwitch } from "../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
+import { CommonModule } from '@angular/common';
 
 export interface ExchangeResponse {
   success: boolean;
