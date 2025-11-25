@@ -5,13 +5,13 @@
       <div class="pesquisa_sala">
 
         <label for="room">Pesquisar Sala</label>
-        <input id="room" type="text" placeholder="Codeigo da sala" [(ngModel)]="roomName" />
+        <input id="room" type="text" placeholder="Código da sala" [(ngModel)]="roomName" />
         <button class="btn" (click)="joinRoom(roomName)">Entrar</button>
       </div>
 
       <hr />
 
-      <h2>Salas Public </h2>
+      <h2>Salas Públicas</h2>
       <ul class="sala_publicas" *ngIf="rooms().length > 0; else loading">
 
         <li *ngFor="let r of rooms()">
