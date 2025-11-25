@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { WsService } from '../ws.service';
 import { User } from '../auth';
 import { RoomInfo } from '../game';
+import { UserService } from '../user.service';
 
 //
 // --- WebSocket Message Types ---
@@ -37,7 +38,7 @@ export class GameService {
   room = signal<RoomInfo | null>(null);
   hasRoom = computed(() => !!this.room());
 
-  constructor(private ws: WsService, private router: Router) {
+  constructor(private ws: WsService, private router: Router, private userService: UserService) {
     this.ws.onMessage().subscribe((msg) => this.handleMessage(msg));
   }
 
@@ -75,7 +76,16 @@ export class GameService {
   }
 
   private updateRoom(room: any) {
-    this.room.set(room);
+    const currentUser = this.userService.user();
+    const normalizedPlayers = (room?.players || []).map((p: any, idx: number) => {
+      const rawColor = p?.color;
+      const color = typeof rawColor === 'string' ? rawColor.toLowerCase() : rawColor;
+      const isLocal = !!currentUser && p?.id === currentUser.id;
+      return { ...p, color, isLocal };
+    });
+
+    const nextRoom = { ...room, players: normalizedPlayers };
+    this.room.set(nextRoom);
   }
 
   createRoom(args: { name: string; user: User; isPrivate: boolean }) {

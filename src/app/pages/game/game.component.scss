@@ -18,14 +18,11 @@ $grid-rows: 6;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
   color: $text-color;
   padding: 20px;
   gap: 20px;
   align-items: center;
-}
-
-.factory-bg {
-  background: url('../../../asstes/pixels/fundos/fundo.png') center/cover no-repeat;
 }
 
 // ========================================
@@ -87,57 +84,15 @@ $grid-rows: 6;
   justify-content: flex-end;
 }
 
-// Layout inspirado na imagem (esteiras + garras + tabuleiro central)
-.stage {
-  position: relative;
-  width: min(100%, 900px);
-  height: 520px;
-}
-
-.station {
-  position: absolute;
-  top: 40px;
-  width: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-.station-left { left: 0; }
-.station-right { right: 0; }
-.conveyor { width: 100%; height: auto; }
-.crane { position: relative; width: 90px; height: 150px; }
-.crane-pole { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); height: 140px; }
-.crane-head { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70px; }
-.digital-display { position: relative; width: 120px; }
-.digital-display img { width: 100%; height: auto; display: block; }
-.digital-display .digits { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px; color: #00ff00; text-shadow: 0 0 4px #003300; }
-
-.center-board {
-  position: absolute;
-  left: 50%;
-  top: 40px;
-  transform: translateX(-50%);
-  width: 448px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.board-frame { width: 448px; height: auto; display: block; }
-.board-base { margin-top: 8px; width: 200px; display: flex; gap: 12px; justify-content: center; }
-.center-display { margin-top: 8px; }
-
 // ========================================
 // COLUMN CONTROLS (BOTÕES SUPERIORES)
 // ========================================
 
 .column-controls {
-  position: absolute;
-  top: -28px;
-  left: 0;
-  display: grid;
-  grid-template-columns: repeat(7, 64px);
+  display: flex;
   gap: 0;
+  margin-bottom: 0;
+  width: fit-content;
 }
 
 .column-button {
@@ -186,11 +141,14 @@ $grid-rows: 6;
 }
 
 .game-grid {
-  position: absolute;
-  top: 32px;
-  left: 0;
+  position: relative;
   width: 448px; // 7 * 64px
   height: 384px; // 6 * 64px
+  background: $grid-bg;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 // Grid visual
@@ -448,6 +406,36 @@ $grid-rows: 6;
 // RESPONSIVO
 // ========================================
 
+.game-split {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.player-panel {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.player-panel h3 {
+  margin: 0 0 15px 0;
+}
+
+.power-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.btn-power[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (max-width: 600px) {
   .game-container {
     padding: 10px;
@@ -462,9 +450,27 @@ $grid-rows: 6;
     gap: 20px;
   }
 
-  .center-board, .board-frame { width: 336px; }
-  .game-grid { width: 336px; height: 288px; top: 24px; }
-  .column-controls { grid-template-columns: repeat(7, 48px); top: -22px; }
-  .column-button, .box { width: 48px; height: 48px; font-size: 18px; }
-  .station { width: 200px; }
+  .game-grid {
+    width: 336px; // 7 * 48px
+    height: 288px; // 6 * 48px
+  }
+
+  .column-button,
+  .box {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .power-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 24px;
+  }
 }

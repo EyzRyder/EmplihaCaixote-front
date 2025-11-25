@@ -30,15 +30,15 @@
           <div
             class="player-avatar"
             [style.backgroundColor]="
-              player.color === 'red' ? '#FF6B6B' : '#4ECDC4'
+              (i === 0 ? 'red' : 'blue') === 'red' ? '#FF6B6B' : '#4ECDC4'
             "
           >
-            {{ player.color === "red" ? "R" : "B" }}
+            {{ (i === 0 ? 'red' : 'blue') === 'red' ? 'R' : 'B' }}
           </div>
 
           <div class="player_info">
             <p class="player-color">
-              {{ player.color === "red" ? "Vermelho" : "Azul" }}
+              {{ (i === 0 ? 'red' : 'blue') === 'red' ? 'Vermelho' : 'Azul' }}
             </p>
             <p *ngIf="player.isLocal" class="player-label">(Você)</p>
             <p *ngIf="!player.isLocal" class="player-label">(Oponente)</p>
