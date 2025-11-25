@@ -45,7 +45,7 @@ export class LojaDiamantesComponent {
     }
     
     // 1. Chamada ao backend
-    this.http.post<GemsPurchaseResponse>(this.apiUrl+"/shop/add-gems", {gemsAmount}).subscribe({
+    this.http.post<GemsPurchaseResponse>(this.apiUrl+"/shop/buy/gems", {gemsAmount}).subscribe({
         
         // 2. Lógica de sucesso (next)
         next: (response) => {

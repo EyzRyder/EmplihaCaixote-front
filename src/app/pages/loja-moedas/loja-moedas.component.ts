@@ -43,7 +43,7 @@ export class LojaMoedasComponent {
     }
     
     // 1. Chamada ao backend
-    this.http.post<ExchangeResponse>(this.apiUrl+"/exchange/coins-for-gems", {coinsAmount, gemsPrice}).subscribe({
+    this.http.post<ExchangeResponse>(this.apiUrl+"/shop/exchange/coins", {coinsAmount, gemsPrice}).subscribe({
         
         // 2. Lógica de sucesso (next)
         next: (response) => {
