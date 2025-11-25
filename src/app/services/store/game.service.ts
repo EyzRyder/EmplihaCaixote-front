@@ -14,7 +14,8 @@ type ServerMessage =
   | { type: 'room-update'; room: any }
   | { type: 'start-game'; room: any; currentPlayerId?: string }
   | { type: 'turn-start'; playerId: string; timeLeft: number }
-  | { type: 'turn-timeout'; playerId: string };
+  | { type: 'turn-timeout'; playerId: string }
+  | { type: 'room-updated'; room: any };
 
 type ClientMessage =
   | {
@@ -54,6 +55,7 @@ export class GameService {
       case 'player-reentered':
       case 'room-update':
       case 'start-game':
+      case 'room-updated':
         this.updateRoom(msg.room);
         break;
 

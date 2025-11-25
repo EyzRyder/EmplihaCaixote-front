@@ -219,6 +219,10 @@ export class LobbyComponent implements OnDestroy {
   // ---------------------------------------------------------------------------
 
   goBack(): void {
+    const user = this.userService.user();
+    if (user) {
+      this.ws.send({ type: 'exit_room', playerId: user.id } as any);
+    }
     this.router.navigate(['/salas']);
   }
 }
