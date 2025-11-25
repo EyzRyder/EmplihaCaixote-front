@@ -8,9 +8,10 @@ import { CardLayoutComponent } from '../../../components/card-layout/card-layout
 
 @Component({
   selector: 'app-cadastro',
-  imports: [CommonModule, FormsModule,CardLayoutComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, CardLayoutComponent],
   templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.scss'
+  styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent {
   username = '';
@@ -20,10 +21,11 @@ export class CadastroComponent {
   constructor(
     private authService: UserService,
     private _location: Location,
-    private _router: Router) { }
+    private _router: Router
+  ) {}
 
   onCadastro() {
-    if (this.username.trim() == '' || this.password.trim() == '' || this.confirmPassword.trim() == '') {
+    if (!this.username.trim() || !this.password.trim() || !this.confirmPassword.trim()) {
       this.error = 'Não pode deixar nenhum campo vazio';
       return;
     } else if (this.password !== this.confirmPassword) {
@@ -38,14 +40,13 @@ export class CadastroComponent {
     };
     this.authService.register(payload).subscribe({
       next: () => {
-        console.log('Logged in');
+        console.log('Cadastro concluído');
         this._router.navigate(['/salas']);
       },
       error: (err) => {
-        this.error = err.error?.message || 'Login failed';
+        this.error = err.error?.message || 'Cadastro falhou';
       },
     });
-
   }
   goBack(): void {
     if (window.history.length > 1) {

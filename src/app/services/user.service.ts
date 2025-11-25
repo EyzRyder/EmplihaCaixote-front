@@ -7,9 +7,9 @@ import { AuthRequest, AuthResponse, User } from './auth';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://192.168.0.106:8080/auth';
+  private apiUrl = 'http://192.168.0.163:8080/auth';
   private _user = signal<User | null>(
-    JSON.parse(localStorage.getItem('auth_user') || 'null'),
+    JSON.parse(localStorage.getItem('auth_user') || 'null')
   );
   user = computed(() => this._user());
   isLoggedIn = computed(() => !!this._user());
@@ -17,21 +17,23 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   login(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/login", payload).pipe(
+    return this.http.post<AuthResponse>(this.apiUrl + '/login', payload).pipe(
       tap((response) => {
         this.setUser(response.user);
         localStorage.setItem('auth_token', response.token);
-      }),
+      })
     );
   }
 
   register(payload: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiUrl+"/register", payload).pipe(
-      tap((response) => {
-        this.setUser(response.user);
-        localStorage.setItem('auth_token', response.token);
-      }),
-    );
+    return this.http
+      .post<AuthResponse>(this.apiUrl + '/register', payload)
+      .pipe(
+        tap((response) => {
+          this.setUser(response.user);
+          localStorage.setItem('auth_token', response.token);
+        })
+      );
   }
 
   logout() {

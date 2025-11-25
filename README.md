@@ -1,59 +1,109 @@
-# Client
+# EmplihaCaixote Front – Componentes e Funções
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+## Visão Geral
+- Aplicação Angular standalone com gerenciamento de estado via Signals e comunicação em tempo real através de WebSocket.
+- Rotas principais em `src/app/app.routes.ts` e providers em `src/app/app.config.ts`.
 
-## Development server
+## Mapa de Rotas
+- `'/salas'` → `RoomsComponent`
+- `'/sala/:id'` → `LobbyComponent`
+- `'/game'` → `GameComponent`
+- `'/loja'` → `LojaComponent`
+- `'/login'` → `LoginComponent`
+- `'/cadastro'` → `CadastroComponent`
+- `'/'` → `HomeComponent`
 
-To start a local development server, run:
+## Componentes de Página
 
-```bash
-ng serve
-```
+### AppComponent
+- Arquivo: `src/app/app.component.ts`
+- Função: Componente raiz que rende o `router-outlet` para navegação da aplicação.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### HomeComponent
+- Arquivo: `src/app/pages/home/home.component.ts`
+- Funções:
+  - Exibe ações iniciais com base no estado de autenticação (`login`, `cadastro`, `iniciar`, `loja`).
+  - Utiliza `UserService` para verificar se o usuário está autenticado.
 
-## Code scaffolding
+### LoginComponent
+- Arquivo: `src/app/pages/auth/login/login.component.ts`
+- Funções:
+  - Formulário de login e submissão para a API de autenticação via `UserService`.
+  - Navega para `'/salas'` após sucesso; exibe mensagens de erro em caso de falha.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### CadastroComponent
+- Arquivo: `src/app/pages/auth/cadastro/cadastro.component.ts`
+- Funções:
+  - Formulário de cadastro e submissão para a API via `UserService`.
+  - Valida campos e navega para `'/salas'` após sucesso.
 
-```bash
-ng generate component component-name
-```
+### RoomsComponent
+- Arquivo: `src/app/pages/rooms/rooms.component.ts`
+- Funções:
+  - Lista de salas públicas com criação/entrada de sala (`GameService` + `WsService`).
+  - Mantém `rooms` em `signal/computed` e gerencia navegação para o lobby.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### LobbyComponent
+- Arquivo: `src/app/pages/lobby/lobby.component.ts`
+- Funções:
+  - Tela de espera da sala, mostrando jogadores, prontidão e estado da sala.
+  - Escuta eventos via `WsService` e navega para `'/game'` ao receber `start-game`.
 
-```bash
-ng generate --help
-```
+### GameComponent
+- Arquivo: `src/app/pages/game/game.component.ts`
+- Funções:
+  - Área de jogo Connect Four: grid, controle de colunas, peças e timer de turno.
+  - Integração com `WsService` para eventos: `start-game`, `turn-start`, `board-update`, `turn-timeout`, `game-over`.
+  - Estados locais (`gameState`, `timerInfo`) e poderes (limpar linha, eliminar caixa, reduzir tempo, bloquear coluna).
 
-## Building
+### LojaComponent
+- Arquivo: `src/app/pages/loja/loja.component.ts`
+- Função: Página da loja (estrutura base pronta para expansão).
 
-To build the project run:
+## Componentes Compartilhados
 
-```bash
-ng build
-```
+### CardLayoutComponent
+- Arquivo: `src/app/components/card-layout/card-layout.component.ts`
+- Função: Layout de cartão reutilizável para páginas com conteúdo centralizado e estilização consistente.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Serviços
 
-## Running unit tests
+### UserService
+- Arquivo: `src/app/services/user.service.ts`
+- Funções:
+  - Login/Cadastro via HTTP; guarda `token` e `user` no `localStorage`.
+  - Signals: `user`, `isLoggedIn`. Métodos utilitários `getToken`, `getUser`, `logout`.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### WsService
+- Arquivo: `src/app/services/ws.service.ts`
+- Funções:
+  - Conexão WebSocket com fila de envio, reabertura automática e fluxos `message$` e `onOpen()`.
+  - API `send(typeOrPayload, payload?)` para comunicação com o backend.
 
-```bash
-ng test
-```
+### GameService
+- Arquivo: `src/app/services/store/game.service.ts`
+- Funções:
+  - Estado da sala e integração com WebSocket para criar/entrar sala.
+  - Interface com `RoomInfo` e tipagem de mensagens de servidor/cliente.
 
-## Running end-to-end tests
+## Guard, Interceptor e Estratégia
 
-For end-to-end (e2e) testing, run:
+### authGuard
+- Arquivo: `src/app/guards/auth.guard.ts`
+- Função: Restringe acesso às páginas protegidas baseado em `UserService.isLoggedIn()`.
 
-```bash
-ng e2e
-```
+### authInterceptor
+- Arquivo: `src/app/interceptors/auth.interceptor.ts`
+- Função: Anexa `Authorization: Bearer <token>` às requisições HTTP quando disponível.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### NoReuseStrategy
+- Arquivo: `src/app/strategies/no-reuse-strategy.ts`
+- Função: Controla reutilização de rotas para evitar manter componentes indevidamente ativos na navegação.
 
-## Additional Resources
+## Referências Úteis
+- Rotas: `src/app/app.routes.ts`
+- Providers: `src/app/app.config.ts`
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Observações de UI
+- Tipografia `'VCR_OSD_MONO'` configurada em `src/styles.scss` e aplicada amplamente em títulos e elementos-chave.
+- Padrões visuais harmonizados entre `Rooms` e `Lobby` para consistência.

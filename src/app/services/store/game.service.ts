@@ -11,11 +11,15 @@ type ServerMessage =
   | { type: 'room-created'; room: any }
   | { type: 'player-joined'; room: any }
   | { type: 'player-reentered'; room: any }
-  | { type: 'room-update'; room: any };
+  | { type: 'room-update'; room: any }
+  | { type: 'start-game'; room: any; currentPlayerId?: string }
+  | { type: 'turn-start'; playerId: string; timeLeft: number }
+  | { type: 'turn-timeout'; playerId: string };
 
-  type ClientMessage =
+type ClientMessage =
   | {
       type: 'create-room';
+      name: string;
       user: { id: string; username: string };
       isPrivate: boolean;
     }
@@ -38,7 +42,7 @@ export class GameService {
 
   private handleMessage(raw: any) {
     const msg = raw as ServerMessage;
-    console.log('[GameService] WS message:', msg);
+    console.log('[GameService] Mensagem WS:', msg);
 
     switch (msg.type) {
       case 'room-created':
@@ -49,11 +53,21 @@ export class GameService {
       case 'player-joined':
       case 'player-reentered':
       case 'room-update':
+      case 'start-game':
         this.updateRoom(msg.room);
         break;
 
+      case 'turn-start':
+        // Optional: update room state if applicable
+        console.log('[GameService] turn-start recebido:', msg);
+        break;
+
+      case 'turn-timeout':
+        console.log('[GameService] turn-timeout recebido:', msg);
+        break;
+
       default:
-        console.warn('[GameService] Unknown WS message:', msg);
+        console.warn('[GameService] Mensagem WS desconhecida:', msg);
         break;
     }
   }
@@ -69,6 +83,7 @@ export class GameService {
 
     const payload: ClientMessage = {
       type: 'create-room',
+      name,
       user: { id: user.id, username: user.username },
       isPrivate,
     };
@@ -87,5 +102,4 @@ export class GameService {
 
     this.ws.send(payload);
   }
-
 }

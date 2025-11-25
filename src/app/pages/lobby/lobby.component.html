@@ -1,43 +1,100 @@
-<main class="lobby bg_red_blue">
+<main class="room bg_red_blue">
   <app-card-layout>
+  <div class="room_content">
+    <!-- HEADER -->
+    <header class="lobby-header">
+      <h1>🎮 Sala de Espera</h1>
+      <div class="room-info">
+        <p>
+          <strong>Código da Sala:</strong>
+          <span class="room-code">{{ room()?.id }}</span>
+        </p>
+        <p>
+          <strong>Jogadores:</strong>
+          <span class="player-count">{{ players().length }}/2</span>
+        </p>
+      </div>
+    </header>
 
-    <div *ngIf="room() !==null; else loading" class="container">
-      <h2>{{ room()?.name }}</h2>
-      <p *ngIf="room()?.isPrivate">Codigo sala privada: {{room()?.id}}</p>
-      <p *ngIf="room()?.isPrivate==false">Codigo sala publica: {{room()?.id}}</p>
+    <!-- PLAYERS SECTION -->
+    <div class="players_section">
+      <h2>👥 Jogadores</h2>
 
-      <h3>Jogadores:</h3>
-      <ul class="players_list" *ngIf="players().length > 0; else noPlayers ">
-        <li *ngFor="let p of players()">
-          Jogador: {{ p.username }} 
-          <span class="ready" *ngIf="room()?.ready?.[p.id]; else notReady">
-            Está pronto
-          </span>
-        
-          <ng-template #notReady>
-            <span class="not-ready">não está pronto</span>
-          </ng-template>
-        </li>
-        <div *ngIf="players().length === 1">
-          <strong>Aguardadndo Outro player...</strong>
+      <div class="players_list">
+        <!-- Jogador 1 -->
+        <div
+          *ngFor="let player of players(); let i = index"
+          class="player_card"
+          [class.local]="player.isLocal"
+        >
+          <div
+            class="player-avatar"
+            [style.backgroundColor]="
+              player.color === 'red' ? '#FF6B6B' : '#4ECDC4'
+            "
+          >
+            {{ player.color === "red" ? "R" : "B" }}
+          </div>
+
+          <div class="player_info">
+            <p class="player-color">
+              {{ player.color === "red" ? "Vermelho" : "Azul" }}
+            </p>
+            <p *ngIf="player.isLocal" class="player-label">(Você)</p>
+            <p *ngIf="!player.isLocal" class="player-label">(Oponente)</p>
+          </div>
+
+          <div [ngClass]="getPlayerReadyClass(player)" class="player_status">
+            <span>{{ getPlayerReadyStatus(player) }}</span>
+          </div>
         </div>
-      </ul>
-      <ng-template #noPlayers>
-        <p>Aguardando outro jogador...</p>
-      </ng-template>
 
- 
-      <div class="btnList">
-        <button class="btn" (click)="goBack()">Sair</button>
-        <a routerLink="/perfil"><button class="btn">Perfil</button></a>
-        <a routerLink="/loja"><button class="btn">Loja</button></a>
-        <button class="btn" >Estou Pronto</button>
+        <!-- PLACEHOLDER se não tem oponente -->
+        <div *ngIf="players().length < 2" class="player_card placeholder">
+          <div class="player_avatar empty">?</div>
+          <div class="player_info">
+            <p class="player-color">Aguardando...</p>
+            <p class="player-label">Oponente</p>
+          </div>
+          <div class="player_status status-waiting">
+            <span>Não conectado</span>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- READY SECTION -->
+    <div class="ready_section">
+      <button
+        (click)="markPlayerReady()"
+        [disabled]="isReadyButtonDisabled()"
+        class="btn_ready"
+        [class.ready]="isReady()"
+        [class.disabled]="isReadyButtonDisabled()"
+      >
+        {{ getReadyButtonText() }}
+      </button>
 
-    <ng-template #loading>
-      <div class="container">loading...</div>
-    </ng-template>
+      <!-- STATUS GERAL -->
+      <div class="ready_status">
+        <p [ngClass]="getStatusMessageClass()" class="status_message">
+          {{ getStatusMessage() }}
+        </p>
+      </div>
+    </div>
+
+    <!-- INFO EXTRA -->
+    <div class="info_section">
+      <p class="info_text">
+        ℹ️ Quando ambos os jogadores clicarem em "Estou Pronto", o jogo será
+        iniciado automaticamente.
+      </p>
+    </div>
+
+    <!-- BOTÃO VOLTAR -->
+    <div class="btnList">
+      <button (click)="goBack()" class="btn">Voltar</button>
+    </div>
+  </div>
   </app-card-layout>
 </main>

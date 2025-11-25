@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  UserService } from '../../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
@@ -8,9 +8,10 @@ import { CardLayoutComponent } from '../../../components/card-layout/card-layout
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule,CardLayoutComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, CardLayoutComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   username = '';
@@ -24,23 +25,23 @@ export class LoginComponent {
   ) {}
 
   onLogin() {
-    if (this.username.trim() == '' || this.password.trim() == '') {
+    if (!this.username.trim() || !this.password.trim()) {
       this.error = 'Não pode deixar nenhum campo vazio';
       return;
     } else {
       this.error = '';
     }
-    const payload: AuthRequest= {
+    const payload: AuthRequest = {
       username: this.username,
       password: this.password,
     };
     this.authService.login(payload).subscribe({
       next: () => {
-        console.log('Logged in');
-        this._router.navigate(['/salas']); 
+        console.log('Logado');
+        this._router.navigate(['/salas']);
       },
       error: (err) => {
-        this.error = err.error?.message || 'Login failed';
+        this.error = err.error?.message || 'Login falhou';
       },
     });
   }
@@ -49,7 +50,7 @@ export class LoginComponent {
     if (window.history.length > 1) {
       this._location.back();
     } else {
-      this._router.navigate(['/']); 
+      this._router.navigate(['/']);
     }
   }
 }
