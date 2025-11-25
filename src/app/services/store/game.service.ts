@@ -37,7 +37,6 @@ type ClientMessage =
 export class GameService {
   room = signal<RoomInfo | null>(null);
   hasRoom = computed(() => !!this.room());
-  fundo = signal<string>("pixels/fundo.png");
 
   constructor(private ws: WsService, private router: Router, private userService: UserService) {
     this.ws.onMessage().subscribe((msg) => this.handleMessage(msg));

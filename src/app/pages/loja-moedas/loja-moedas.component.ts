@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, Signal } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Observable, tap } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
@@ -24,14 +23,11 @@ export class LojaMoedasComponent {
   moeda: Signal<number | null> = computed(() => this.userService.getUser()?.coins ?? 0);
   errorMessage: string | null = null;
 
-  inventory = computed(() => this.userService.inventory());
-
   constructor(
     private http: HttpClient,
     private userService: UserService) {
     this.userService.getUserDetails().subscribe()
     this.userService.getUserInventory().subscribe()
-
   }
 
   /**

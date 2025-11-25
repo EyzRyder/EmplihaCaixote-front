@@ -29,47 +29,27 @@
             </div>
 
             <div class="store-content">
-                <div class="store-item">
+                <div *ngFor="let item of skins()" class="store-item">
                     <div class="item-icon-border">
-                        <img src="pixels\fundos\fundo_floresta.png" alt="CENARIO 1" class="item-icon">
+                        <img [src]="sanitizeUrl(item.iconUrl)" alt="CENARIO 1" class="item-icon">
                     </div>
                     <div class="item-details">
-                        <p class="item-name">Floresta</p>
-                        <p class="item-description">Cenário de Floresta</p>
-                        <button class="item-price" (click)="buySkinOrScenario(1, 50)">💎 50</button>
-                    </div>
-                </div>
-                <div class="store-item">
-                    <div class="item-icon-border">
-                        <img src="pixels\fundos\fundo_gelo.png" alt="CENARIO 2" class="item-icon">
-                    </div>
-                    <div class="item-details">
-                        <p class="item-name">Gelo</p>
-                        <p class="item-description">Cenário de gelo</p>
-                        <button class="item-price" (click)="buySkinOrScenario(2, 50)">💎 50</button>
-                    </div>
-                </div>
-                <div class="store-item">
-                    <div class="item-icon-border">
-                        <img src="pixels\fundos\fundo_lua.png" alt="CENARIO 3" class="item-icon">
-                    </div>
-                    <div class="item-details">
-                        <p class="item-name">Lua</p>
-                        <p class="item-description">Cenário da lua</p>
-                        <button class="item-price" (click)="buySkinOrScenario(3, 50)">💎 50</button>
-                    </div>
-                </div>
-                <div class="store-item">
-                    <div class="item-icon-border">
-                        <img src="pixels\fundos\fundo_vulcao.png" alt="CENARIO 4" class="item-icon">
-                    </div>
-                    <div class="item-details">
-                        <p class="item-name">Vulcão</p>
-                        <p class="item-description">Cenário de vulcão</p>
-                        <button class="item-price" (click)="buySkinOrScenario(4, 50)">💎 50</button>
-                    </div>
-                </div>
+                        <p class="item-name">{{item.name}}</p>
+                        <p class="item-description">{{item.description}}</p>
 
+                        <button *ngIf="!item.owned" class="item-price"
+                            (click)="buySkinOrScenario(item.id, item.priceGems)">💎
+                            {{item.priceGems}}</button>
+
+                        <button *ngIf="item.owned && !usadoFundo(item.iconUrl)
+                        " class="item-price" (click)="useFundo(item.iconUrl)">
+                            Equipar</button>
+                        <p *ngIf="item.owned && usadoFundo(item.iconUrl)
+                                                    " class="item-price" (click)="useFundo(item.iconUrl)">
+                            Equipado</p>
+
+                    </div>
+                </div>
             </div>
 
             <div class="store-footer">

@@ -3,7 +3,7 @@ export const environment = {
     production: false,
     apiUrl: {
         host: "http://",
-        ip: "192.168.56.1",
+        ip: "10.114.116.115",
         port: ":8080"
     }
 };

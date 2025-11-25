@@ -17,7 +17,7 @@ export interface User {
 }
 
 
-type Skins = {
+export type Skins = {
   "id": number,
   "name": string,
   "description": string,
@@ -27,7 +27,7 @@ type Skins = {
   "owned": boolean
   "Useing": boolean
 }
-type Powers = {
+export type Powers = {
   "id": number,
   "name": string,
   "description": string,

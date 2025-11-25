@@ -15,6 +15,7 @@ export class UserService {
   );
   user = computed(() => this._user());
   isLoggedIn = computed(() => !!this._user());
+  fundo = signal<string>("pixels/fundos/fundo.png");
 
   inventory = signal<Inventory>({
     powers: [],
@@ -54,8 +55,8 @@ export class UserService {
     return this.http.get<any>(this.apiUrl + "/shop/inventory").pipe(
       tap((response) => {
         this.inventory.set({
-          powers: response.skins,
-          skins: response.powers
+          powers: response.powers,
+          skins: response.skins
         });
         console.log(this.inventory());
         // this.setUser(response);
