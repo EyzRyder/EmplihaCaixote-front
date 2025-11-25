@@ -42,6 +42,15 @@
       </div>
     </div>
 
+     <div class="board-panel">
+      <div class="column-controls">
+        <button *ngFor="let col of [0, 1, 2, 3, 4, 5, 6]" (click)="dropBox(col)" [ngClass]="getColumnButtonClass(col)"
+          [disabled]="
+            !timerInfo.isMyTurn || gameState.gameOver || isColumnBlocked(col)
+          ">
+          ⬇
+        </button>
+      </div>
     <!-- GRID PRINCIPAL -->
     <div class="game-grid-wrapper">
       <div class="game-grid">
