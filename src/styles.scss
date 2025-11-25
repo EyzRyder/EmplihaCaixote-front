@@ -11,7 +11,7 @@ body{
 
 @font-face {
   font-family: 'VCR_OSD_MONO';
-  src: url('./asstes/font/VCR_OSD_MONO_1.001.ttf') format('truetype');
+  src: url('./assets/font/VCR_OSD_MONO_1.001.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -47,7 +47,7 @@ main {
   }
 
 .bg_red_blue {
-  background-image: url("./asstes/pixels/fundos/menu.png");
+  background-image: url("./assets/pixels/fundos/menu.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

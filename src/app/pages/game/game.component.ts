@@ -60,6 +60,7 @@ export class GameComponent implements OnInit, OnDestroy {
   // Caixas visuais
   boxes: Box[] = [];
   blockedColumns: number[] = [];
+  usedPowers: Record<string, Record<string, boolean>> = {};
 
   // Configuração do grid
   private readonly GRID_ROWS = 6;
@@ -209,6 +210,8 @@ export class GameComponent implements OnInit, OnDestroy {
         this.gameState.myPlayer = idx !== -1 ? idx + 1 : 1;
       }
     }
+    // Resetar uso de poderes no início de cada jogo
+    this.usedPowers = {};
     this.updateBoxesFromBoard();
 
     this.gameStartTime = Date.now();
@@ -381,6 +384,45 @@ export class GameComponent implements OnInit, OnDestroy {
     });
 
     console.log(`→ Poder usado: ${powerType}`);
+  }
+
+  // ========================================
+  // PODERES POR JOGADOR (UMA VEZ)
+  // ========================================
+
+  getPlayers(): any[] {
+    return this.game.room()?.players || [];
+  }
+
+  getPlayerIdByIndex(index: number): string | undefined {
+    const player = this.getPlayers()[index];
+    return player?.id;
+  }
+
+  isLocalByIndex(index: number): boolean {
+    const pid = this.getPlayerIdByIndex(index);
+    return !!pid && pid === this.gameState.myId;
+  }
+
+  isPowerUsed(index: number, powerType: string): boolean {
+    const pid = this.getPlayerIdByIndex(index);
+    return !!pid && !!this.usedPowers[pid]?.[powerType];
+  }
+
+  canUsePower(index: number, powerType: string): boolean {
+    const isLocal = this.isLocalByIndex(index);
+    if (!isLocal) return false;
+    if (this.gameState.gameOver) return false;
+    return !this.isPowerUsed(index, powerType);
+  }
+
+  usePlayerPower(index: number, powerType: string, data?: any): void {
+    if (!this.canUsePower(index, powerType)) return;
+    this.usePower(powerType, data);
+    const pid = this.getPlayerIdByIndex(index);
+    if (!pid) return;
+    if (!this.usedPowers[pid]) this.usedPowers[pid] = {};
+    this.usedPowers[pid][powerType] = true;
   }
 
   /**

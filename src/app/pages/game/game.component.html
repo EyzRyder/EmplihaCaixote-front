@@ -1,7 +1,8 @@
 <div class="game-container">
+  <audio id="bg" src="/svgs/background.mp3" autoplay loop></audio> 
   <!-- HEADER -->
   <header class="game-header">
-    <h1>🎮 Connect Four - Em Jogo</h1>
+    <h1>🎮 Empilha Caixote - Em Jogo</h1>
     <div class="game-stats">
       <div class="stat">
         <label>Tempo de Jogo</label>
@@ -15,7 +16,7 @@
       </div>
     </div>
   </header>
-  
+
   <audio id="bg" src="../../../asstes/sons/background.mp3" autoplay loop></audio>  
   <!-- GAME AREA -->
   <div class="game-area">
@@ -75,38 +76,74 @@
     </div>
   </div>
 
-  <!-- PODERES -->
-  <div class="powers-section">
-    <h3>⚡ Poderes</h3>
-    <div class="power-buttons" [class.disabled]="timerInfo.isMyTurn">
-      <button
-        (click)="usePower('clear_bottom_line')"
-        class="btn-power"
-        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
-      >
-        🧹 Limpar Linha Inferior
-      </button>
-      <button
-        (click)="usePower('eliminate_box')"
-        class="btn-power"
-        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
-      >
-        💥 Eliminar Caixa
-      </button>
-      <button
-        (click)="usePower('reduce_opponent_time')"
-        class="btn-power"
-        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
-      >
-        ⏰ Reduzir Tempo
-      </button>
-      <button
-        (click)="usePower('block_column', { col: 0 })"
-        class="btn-power"
-        [disabled]="timerInfo.isMyTurn || gameState.gameOver"
-    >
-      🚫 Bloquear Coluna
-    </button>
+  <!-- PODERES POR JOGADOR / TELA DIVIDIDA -->
+  <div class="game-split">
+    <div class="player-panel left">
+      <h3>⚡ Poderes - {{ getPlayers()[0]?.username || 'Jogador 1' }}</h3>
+      <div class="power-buttons">
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(0, 'clear_bottom_line')"
+          [disabled]="!canUsePower(0, 'clear_bottom_line')"
+        >
+          🧹 Limpar Linha Inferior
+        </button>
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(0, 'eliminate_box')"
+          [disabled]="!canUsePower(0, 'eliminate_box')"
+        >
+          💥 Eliminar Caixa
+        </button>
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(0, 'reduce_opponent_time')"
+          [disabled]="!canUsePower(0, 'reduce_opponent_time')"
+        >
+          ⏰ Reduzir Tempo
+        </button>
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(0, 'block_column', { col: 0 })"
+          [disabled]="!canUsePower(0, 'block_column')"
+        >
+          🚫 Bloquear Coluna
+        </button>
+      </div>
+    </div>
+
+    <div class="player-panel right">
+      <h3>⚡ Poderes - {{ getPlayers()[1]?.username || 'Jogador 2' }}</h3>
+      <div class="power-buttons">
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(1, 'clear_bottom_line')"
+          [disabled]="!canUsePower(1, 'clear_bottom_line')"
+        >
+          🧹 Limpar Linha Inferior
+        </button>
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(1, 'eliminate_box')"
+          [disabled]="!canUsePower(1, 'eliminate_box')"
+        >
+          💥 Eliminar Caixa
+        </button>
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(1, 'reduce_opponent_time')"
+          [disabled]="!canUsePower(1, 'reduce_opponent_time')"
+        >
+          ⏰ Reduzir Tempo
+        </button>
+        <button
+          class="btn-power"
+          (click)="usePlayerPower(1, 'block_column', { col: 0 })"
+          [disabled]="!canUsePower(1, 'block_column')"
+        >
+          🚫 Bloquear Coluna
+        </button>
+      </div>
     </div>
   </div>
 
