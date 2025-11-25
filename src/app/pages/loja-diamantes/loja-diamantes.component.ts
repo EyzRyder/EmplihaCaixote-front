@@ -30,6 +30,8 @@ export class LojaDiamantesComponent {
     private http: HttpClient,
     private userService: UserService) {
     this.userService.getUserDetails().subscribe()
+    this.userService.getUserInventory().subscribe()
+
   }
 
   /**

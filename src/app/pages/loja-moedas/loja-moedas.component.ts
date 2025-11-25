@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Observable, tap } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { CommonModule, NgSwitch } from "../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 
 export interface ExchangeResponse {
   success: boolean;
@@ -13,7 +14,7 @@ export interface ExchangeResponse {
 
 @Component({
   selector: 'app-loja-moedas',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './loja-moedas.component.html',
   styleUrl: './loja-moedas.component.scss'
 })
@@ -23,10 +24,14 @@ export class LojaMoedasComponent {
   moeda: Signal<number | null> = computed(() => this.userService.getUser()?.coins ?? 0);
   errorMessage: string | null = null;
 
+  inventory = computed(() => this.userService.inventory());
+
   constructor(
     private http: HttpClient,
     private userService: UserService) {
     this.userService.getUserDetails().subscribe()
+    this.userService.getUserInventory().subscribe()
+
   }
 
   /**

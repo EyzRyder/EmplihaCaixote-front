@@ -3,9 +3,9 @@
         <div class="store-container">
             <div class="store-header">
                 <a routerLink="/">
-                <button class="back-btn">
-                    <img src="svgs\voltar.svg" alt="Voltar">
-                </button>
+                    <button class="back-btn">
+                        <img src="svgs\voltar.svg" alt="Voltar">
+                    </button>
                 </a>
                 <h2 class="title store-title">LOJA</h2>
                 <div class="resource-bar">
@@ -23,7 +23,6 @@
 
             <div class="store-tabs">
                 <button class="tab active">PODERES</button>
-                <a routerLink="/loja-skins"><button class="tab">SKINS</button></a>
                 <a routerLink="/loja-cenarios"><button class="tab">CENÁRIOS</button></a>
                 <a routerLink="/loja-moedas"><button class="tab">MOEDAS</button></a>
                 <a routerLink="/loja-diamantes"><button class="tab">DIAMANTES</button></a>
@@ -37,7 +36,8 @@
                     <div class="item-details">
                         <p class="item-name">Elimina caixa</p>
                         <p class="item-description">Uma caixa aleatória é eliminada</p>
-                        <button class="item-price" (click)="buyPower({powerId: 1, amount: 1, coins: 1500})">1500</button>
+                        <button class="item-price"
+                            (click)="buyPower({powerId: 1, amount: 1, coins: 1500})">1500</button>
                     </div>
                 </div>
                 <div class="store-item">
@@ -47,7 +47,8 @@
                     <div class="item-details">
                         <p class="item-name">Elimina linha</p>
                         <p class="item-description"> Elimina todas as caixas da última linha</p>
-                        <button class="item-price" (click)="buyPower({powerId: 2, amount: 1, coins: 1500})">1500</button>
+                        <button class="item-price"
+                            (click)="buyPower({powerId: 2, amount: 1, coins: 1500})">1500</button>
                     </div>
                 </div>
                 <div class="store-item">
@@ -55,9 +56,10 @@
                         <img src="pixels\parapuso.png" alt="Poder 1" class="item-icon">
                     </div>
                     <div class="item-details">
-                        <p class="item-name">Redução de tempo</p>
+                        <p class="item-name">Rudação de tempo</p>
                         <p class="item-description"> Reduz o tempo restante do adversário pela metade.</p>
-                        <button class="item-price" (click)="buyPower({powerId: 3, amount: 1, coins: 1500})">1500</button>
+                        <button class="item-price"
+                            (click)="buyPower({powerId: 3, amount: 1, coins: 1500})">1500</button>
                     </div>
                 </div>
                 <div class="store-item">
@@ -67,11 +69,12 @@
                     <div class="item-details">
                         <p class="item-name">Bloqueia Coluna</p>
                         <p class="item-description">Uma coluna fica bloqueada para jogada</p>
-                        <button class="item-price" (click)="buyPower({powerId: 4, amount: 1, coins: 1500})">1500</button>
+                        <button class="item-price"
+                            (click)="buyPower({powerId: 4, amount: 1, coins: 1500})">1500</button>
                     </div>
                 </div>
 
-                </div>
+            </div>
 
             <div class="store-footer">
                 <!-- <a routerLink="/perfil"><button class="btn footer-btn">PERFIL</button></a> -->
